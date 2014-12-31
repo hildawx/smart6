@@ -5,7 +5,7 @@
     <title></title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
     <meta charset="utf-8">
-    <title></title>
+    <title>Smart6</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -104,15 +104,15 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <strong>CPU</strong><br>
-                                    <span class="fs-16">49%</span>
+                                    <span class="fs-16" id="cpu">49%</span>
                                 </div>
                                 <div class="col-sm-4">
                                     <strong>内存</strong><br>
-                                    <span class="fs-16">49%</span>
+                                    <span class="fs-16" id="memory">49%</span>
                                 </div>
                                 <div class="col-sm-4">
                                     <strong>接口流量</strong><br>
-                                    <span class="fs-16">512kb/s</span>
+                                    <span class="fs-16" id="flow">512kb/s</span>
                                 </div>
                             </div>
                         </form>
@@ -142,22 +142,71 @@
     
     <script>
         
-    // 创建儿童账号提交
+    // 创建设备提交
     function createDevice(){
-        $("#addSmart6DeviceModal").modal("hide");
-        
+        var ip = $("#cIp").val();
+        var port = $("#cPort").val();
+//        $.ajax({
+//           url:"smart6/smart6DeviceAdd",
+//           data:{ip:ip,port:port},
+//           type:"POST",
+//           success:function(data){
+//               if(data == "true"){
+//                   $("#addSmart6DeviceModal").modal("hide");
+//               }else{
+//                   alert("添加失败");
+//               }
+//           },
+//           error:function(e){
+//               alert(e.message);
+//           }
+//        });
     }
 
-    // 删除儿童账号
-    function deleteAccount(i,p){
+    // 删除设备账号
+    function deleteDevice(id,i,p){
         console.log(i + "-" + p);
-        
+//        $.ajax({
+//            url :"smart6/smart6DeviceDelete",
+//            data:{id:id},
+//            type:"POST",
+//            success:function(data){
+//                if(data == "true"){
+//                    alert("删除成功！");
+//                }else{
+//                    alert("删除失败！");
+//                }
+//            },
+//            error:function(data){
+//                alert(e.message);
+//            }
+//         });
     }
     
     // 查看设备统计信息
-    function staticInfo(i,p){
+    function staticInfo(id,i,p){
         console.log(i + "-" + p);
         $("#staticInfoModal").modal("show");
+        $('#staticInfoModal').on('shown.bs.modal', function (e) {
+//            $.ajax({
+//               url :"smart6/smart6DeviceStatistics",
+//               data:{id:id},
+//               type:"POST",
+//               dataType:"JSON",
+//               success:function(data){
+//                   if(data){
+//                       $("#cpu").html(data.cpu);
+//                       $("#memory").html(data.memory);
+//                       $("#flow").html(data.flow);
+//                   }else{
+//                       alert("获取数据失败！");
+//                   }
+//               },
+//               error:function(data){
+//                   alert(e.message);
+//               }
+//            });
+        });
     }
 
     $(function() {
@@ -172,21 +221,23 @@
             },
             "bProcessing": true,
             "sAjaxSource": "ajax/data.txt",
+//            "sAjaxSource": "smart6/smart6DeviceList",
             "aoColumns":[
+                {"sTitle": "ID",bVisible: false},
                 {"sTitle": "IP地址"},
                 {"sTitle": "端口"},
                 {
                     "sTitle": "操作",
                     "targets": [3],
                     "render": function(data,type,full,meta){
-                        var ip = full[0];
-                        var port = full[1];
-                        return '<a href="javascript:;" onclick=staticInfo("' + ip + '","' + port + '")><i class="fa fa-list"></i> 查看统计信息</a>&nbsp;&nbsp;&nbsp; <a href="javascript:;" onclick=deleteAccount("' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> 删除</a>';
+                        var id = full[0];
+                        var ip = full[1];
+                        var port = full[2];
+                        return '<a href="javascript:;" onclick=staticInfo("' + id + '","' + ip + '","' + port + '")><i class="fa fa-list"></i> 查看统计信息</a>&nbsp;&nbsp;&nbsp; <a href="javascript:;" onclick=deleteDevice("' + id + '","' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> 删除</a>';
                     }
                 }
             ] 
         });
-
 
     });
     </script>
