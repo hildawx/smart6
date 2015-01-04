@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Smart6</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta content="" name="description">
+        <meta content="" name="author">
+        <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+        <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
+        <style>
+            body{overflow: hidden;}
+            .page-sidebar{
+                left: 0!important;
+            }
+            @media only screen and (min-width: 980px){
+                body.menu-pin .page-sidebar{
+                    transform: translate3d(0, 0px, 0px) !important;
+                    -webkit-transform: translate(0px, 0) !important;
+                }
+            }
+            @media (max-width: 991px){
+                .page-sidebar {
+                    background-color: #2b303b;
+                    z-index: 1000;
+                    left: 0;
+                    position: fixed;
+                    bottom: 0;
+                    top: 0;
+                    right: auto;
+                    overflow: hidden;
+                    display: block;
+                }
+            }
+            .page-sidebar .sidebar-menu .menu-items>li>a>.title{ width:auto;}
+            .page-container .page-content-wrapper .content { padding-top: 0;}
+        </style>
+    </head>
+    <body class="fixed-header dashboard windows desktop pace-done sidebar-visible menu-pin">
+
+        <nav class="page-sidebar" data-pages="sidebar">
+
+            <div class="sidebar-header">
+                <h3 class="text-white">Smart6</h3>
+            </div>
+
+
+            <div class="sidebar-menu">
+
+                <ul class="menu-items">
+                    <li class="m-t-30 open">
+                        <a href="smart6Mng.html" target="mainPage" class="detailed">
+                            <span class="title">Smart6设备管理</span>
+                        </a>
+                        <span class="icon-thumbnail bg-success"><i class="pg-bag"></i></span>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" target="mainPage">
+                            <span class="title">vSmart6管理</span>
+                        </a>
+                        <span class="icon-thumbnail"><i class="pg-calender"></i></span>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" target="mainPage">
+                            <span class="title">分流规则配置</span>
+                        </a>
+                        <span class="icon-thumbnail"><i class="pg-layouts"></i></span>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" target="mainPage">
+                            <span class="title">负载均衡配置</span>
+                        </a>
+                        <span class="icon-thumbnail"><i class="pg-grid"></i></span>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" target="mainPage">
+                            <span class="title">冗余备份配置</span>
+                        </a>
+                        <span class="icon-thumbnail"><i class="pg-charts"></i></span>
+                    </li>
+                    
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+        </nav>
+
+        <div class="page-container">
+            <div class="page-content-wrapper">
+                <div class="content">
+                    <iframe id="mainPage" name="mainPage" src="smart6Mng.html" width="100%" height="" scrolling="auto" frameborder="0"></iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="pages/js/pages.min.js"></script>
+
+        <script>
+
+        /* 取窗口可视范围的高度 */
+        function getClientHeight() {
+            var clientHeight = 0;
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+            } else {
+                var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+            }
+            return clientHeight;
+        }
+
+        // 重新定义iframe的高度
+        function refreshHeight() {
+            var h = getClientHeight();
+            $("#mainPage").attr("height", h + "px");
+        }
+
+        $(window).resize(function() {
+            refreshHeight();
+        });
+
+        refreshHeight();
+
+        $(function(){
+            var lis = $(".menu-items").find("li");
+            lis.on("click",function(){
+                lis.find(".icon-thumbnail").removeClass("bg-success");
+                lis.removeClass("open");
+                $(this).addClass("open");
+                $(this).find(".icon-thumbnail").addClass("bg-success");
+            });
+        });
+      </script>
+    </body>
+</html>

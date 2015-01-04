@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Smart6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/jquery-datatable/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/jquery-datatable/extensions/FixedColumns/css/dataTables.fixedColumns.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
+    <style>
+    .table tbody tr td .btn {margin: 0;}
+    .panel .panel-heading { border-bottom: 1px solid #8A7DBE;}
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid padding-25 sm-padding-10">
+        <div class="panel panel-transparent">
+            <div class="panel-heading">
+                <div class="panel-title"> Smart6设备列表</div>
+                <div class="pull-right">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary btn-cons" id="show-modal" data-toggle="modal" data-target="#addSmart6DeviceModal"><i class="fa fa-plus"></i> 添加Smart6设备</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                <div class="dataTables_wrapper form-inline no-footer">
+                    <div class="table-responsive">
+                        <table id="basicTable" class="table table-hover table-condensed dataTable no-footer">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新建Smart6设备弹窗 Start-->
+        <div class="modal fade stick-up" id="addSmart6DeviceModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header clearfix ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="p-b-5"> 新建Smart6设备</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
+                        <form role="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>IP地址</label>
+                                        <input id="cIp" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>端口</label>
+                                        <input id="cPort" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cEnter" type="button" class="btn btn-primary btn-cons" onClick="createDevice()"> 确定</button>
+                        <button type="button" class="btn btn-cons" data-dismiss="modal"> 取消</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 新建Smart6设备弹窗 End -->
+        
+        <!-- 查看统计信息弹窗 Start-->
+        <div class="modal fade stick-up" id="staticInfoModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header clearfix ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="p-b-5"> 统计信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
+                        <form role="form">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>CPU</strong><br>
+                                    <span class="fs-16" id="cpu">49%</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>内存</strong><br>
+                                    <span class="fs-16" id="memory">49%</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>接口流量</strong><br>
+                                    <span class="fs-16" id="flow">512kb/s</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 查看统计信息弹窗 End -->
+
+    </div>
+
+
+    <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap-select2/select2.min.js"></script>
+    <script src="assets/plugins/jquery-datatable/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-datatable/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js" type="text/javascript"></script>
+    <script type="text/javascript" src="assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
+    <script type="text/javascript" src="assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+    <!--<script type="text/javascript" src="pages/js/common.js"></script>-->
+    
+    <script>
+        
+    // 创建设备提交
+    function createDevice(){
+        var ip = $("#cIp").val();
+        var port = $("#cPort").val();
+//        $.ajax({
+//           url:"smart6/smart6DeviceAdd",
+//           data:{ip:ip,port:port},
+//           type:"POST",
+//           success:function(data){
+//               if(data == "true"){
+//                   $("#addSmart6DeviceModal").modal("hide");
+//               }else{
+//                   alert("添加失败");
+//               }
+//           },
+//           error:function(e){
+//               alert(e.message);
+//           }
+//        });
+    }
+
+    // 删除设备账号
+    function deleteDevice(id,i,p){
+        console.log(i + "-" + p);
+//        $.ajax({
+//            url :"smart6/smart6DeviceDelete",
+//            data:{id:id},
+//            type:"POST",
+//            success:function(data){
+//                if(data == "true"){
+//                    alert("删除成功！");
+//                }else{
+//                    alert("删除失败！");
+//                }
+//            },
+//            error:function(data){
+//                alert(e.message);
+//            }
+//         });
+    }
+    
+    // 查看设备统计信息
+    function staticInfo(id,i,p){
+        console.log(i + "-" + p);
+        $("#staticInfoModal").modal("show");
+        $('#staticInfoModal').on('shown.bs.modal', function (e) {
+//            $.ajax({
+//               url :"smart6/smart6DeviceStatistics",
+//               data:{id:id},
+//               type:"POST",
+//               dataType:"JSON",
+//               success:function(data){
+//                   if(data){
+//                       $("#cpu").html(data.cpu);
+//                       $("#memory").html(data.memory);
+//                       $("#flow").html(data.flow);
+//                   }else{
+//                       alert("获取数据失败！");
+//                   }
+//               },
+//               error:function(data){
+//                   alert(e.message);
+//               }
+//            });
+        });
+    }
+
+    $(function() {
+
+        // jquery.dataTables.js
+        $('#basicTable').dataTable({
+            "bSort": false,
+            "bLengthChange": false,
+            "bFilter": false,
+            "language": {
+                "url": "pages/Chinese.json"
+            },
+            "bProcessing": true,
+            "sAjaxSource": "ajax/data.txt",
+//            "sAjaxSource": "smart6/smart6DeviceList",
+            "aoColumns":[
+                {"sTitle": "ID",bVisible: false},
+                {"sTitle": "IP地址"},
+                {"sTitle": "端口"},
+                {
+                    "sTitle": "操作",
+                    "targets": [3],
+                    "render": function(data,type,full,meta){
+                        var id = full[0];
+                        var ip = full[1];
+                        var port = full[2];
+                        return '<a href="javascript:;" onclick=staticInfo("' + id + '","' + ip + '","' + port + '")><i class="fa fa-list"></i> 查看统计信息</a>&nbsp;&nbsp;&nbsp; <a href="javascript:;" onclick=deleteDevice("' + id + '","' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> 删除</a>';
+                    }
+                }
+            ] 
+        });
+
+    });
+    </script>
+</body>
+
+
+</html>
