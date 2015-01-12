@@ -4,6 +4,7 @@
  */
 package com.ambimmort.smart.servlet;
 
+import com.ambimmort.smart.service.VSmartManageService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "NewServlet", urlPatterns = {"/NewServlet"})
-public class NewServlet extends HttpServlet {
+@WebServlet(name = "VSmartPolicySet", urlPatterns = {"/vsmart6Config"})
+public class VSmartPolicySet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -31,19 +32,13 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String[] host = request.getParameter("smart6").split(",");
+            String config = request.getParameter("config");
+            boolean flag = new VSmartManageService().setvSmartConfig(host[0], host[1], config);
+            out.print(flag);
         } finally {            
             out.close();
         }
