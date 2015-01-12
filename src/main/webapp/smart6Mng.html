@@ -122,9 +122,59 @@
             </div>
         </div>
         <!-- 查看统计信息弹窗 End -->
+        
+        <!-- 下发分流规则弹窗 Start-->
+        <div class="modal fade stick-up" id="shuntRulesModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header clearfix ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="p-b-5"> 下发Smart6分流规则</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
+                        <form role="form">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-group-default">
+                                        <label>分流规则：</label>
+                                        <select id="rule" class="form-group form-group-default">
+                                            <option value="none">无规则</option>
+                                            <option value="onlysrc">按用户源地址分流</option>
+                                            <option value="onlydest">按服务器目的地址分流</option>
+                                            <option value="srcanddest">按源地址加目的地址分流</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none;">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>IP地址</label>
+                                        <input id="shutRulesIp" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>端口</label>
+                                        <input id="shutRulesPort" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cEnter" type="button" class="btn btn-primary btn-cons" onClick="shuntRules()"> 确定</button>
+                        <button type="button" class="btn btn-cons" data-dismiss="modal"> 取消</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 下发分流规则弹窗 End -->
 
     </div>
-
 
     <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
     <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
@@ -138,7 +188,7 @@
     <script src="assets/plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js" type="text/javascript"></script>
     <script type="text/javascript" src="assets/plugins/datatables-responsive/js/datatables.responsive.js"></script>
     <script type="text/javascript" src="assets/plugins/datatables-responsive/js/lodash.min.js"></script>
-    <!--<script type="text/javascript" src="pages/js/common.js"></script>-->
+    <script type="text/javascript" src="pages/js/common.js"></script>
     
     <script>
         
@@ -164,7 +214,7 @@
     }
 
     // 删除设备账号
-    function deleteDevice(id,i,p){
+    function deleteDevice(i,p){
         console.log(i + "-" + p);
 //        $.ajax({
 //            url :"smart6/smart6DeviceDelete",
@@ -184,13 +234,13 @@
     }
     
     // 查看设备统计信息
-    function staticInfo(id,i,p){
+    function staticInfo(i,p){
         console.log(i + "-" + p);
         $("#staticInfoModal").modal("show");
         $('#staticInfoModal').on('shown.bs.modal', function (e) {
 //            $.ajax({
 //               url :"smart6/smart6DeviceStatistics",
-//               data:{id:id},
+//               data:{ip:i,port:p},
 //               type:"POST",
 //               dataType:"JSON",
 //               success:function(data){
@@ -208,6 +258,61 @@
 //            });
         });
     }
+    
+    // 选择分流规则
+    function shuntRulesWin(i,p){
+        $("#shutRulesIp").val(i);
+        $("#shutRulesPort").val(p);
+        $("#shuntRulesModal").modal("show");
+    }
+    
+    // 下发分流规则
+    function shuntRules(){
+        var rule = $("#rule option:selected").val();
+        var ip = $("#shutRulesIp").val();
+        var port = $("#shutRulesPort").val();
+        console.log("下发分流规则："+ip + " - " + port + " - " + rule);
+//        $.ajax({
+//           url :"smart6/smart6ShutRules",
+//           data:{ip:ip,port:port,rule:rule},
+//           type:"POST",
+//           dataType:"JSON",
+//           success:function(data){
+//               if(data == "true"){
+//                   alert("下发分流成功!");
+//               }else{
+//                   alert("下发分流失败！");
+//               }
+//           },
+//           error:function(e){
+//               alert(e.message);
+//           }
+//        });
+        $("#shuntRulesModal").modal("hide");
+        window.location.reload();
+    }
+    
+    // 删除分流规则
+    function shuntRulesDelete(i,p){
+        console.log("删除分流规则：" + i + " - " + p);
+//        $.ajax({
+//           url :"smart6/smart6ShutRulesDelete",
+//           data:{ip:ip,port:port,rule:rule},
+//           type:"POST",
+//           dataType:"JSON",
+//           success:function(data){
+//               if(data == "true"){
+//                   alert("下发分流成功!");
+//               }else{
+//                   alert("下发分流失败！");
+//               }
+//           },
+//           error:function(e){
+//               alert(e.message);
+//           }
+//        });
+        window.location.reload();
+    }
 
     $(function() {
 
@@ -223,20 +328,53 @@
             "sAjaxSource": "ajax/data.txt",
 //            "sAjaxSource": "smart6/smart6DeviceList",
             "aoColumns":[
-                {"sTitle": "ID",bVisible: false},
-                {"sTitle": "IP地址"},
+                {"sTitle": "IP地址","width":"100px"},
                 {"sTitle": "端口"},
                 {
                     "sTitle": "操作",
-                    "targets": [3],
                     "render": function(data,type,full,meta){
-                        var id = full[0];
-                        var ip = full[1];
-                        var port = full[2];
-                        return '<a href="javascript:;" onclick=staticInfo("' + id + '","' + ip + '","' + port + '")><i class="fa fa-list"></i> 查看统计信息</a>&nbsp;&nbsp;&nbsp; <a href="javascript:;" onclick=deleteDevice("' + id + '","' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> 删除</a>';
+                        var ip = full[0];
+                        var port = full[1];
+                        return '<a href="javascript:;" title="配置分流规则" onclick=shuntRulesWin("' + ip + '","' + port + '")><i class="fa fa-code-fork"></i> </a> &nbsp;&nbsp; <a href="javascript:;" title="查看统计信息" onclick=staticInfo("' + ip + '","' + port + '")><i class="fa fa-list"></i> </a> &nbsp;&nbsp; <a href="javascript:;" title="删除" onclick=deleteDevice("' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> </a>';
                     }
                 }
-            ] 
+              ]
+//            fnServerData:function(sUrl, aoData, fnCallback, oSettings){
+//                oSettings.jqXHR = $.ajax({
+//                    "url": sUrl,
+//                    "data": aoData,
+//                    "type":"POST",
+//                    "dataType": "json",
+//                    "cache": false,
+//                    "success": function(data){
+//                        $.each(data.aaData,function(i,e){
+//                            if(e[2] != ""){
+//                                switch(e[2]){
+//                                    case "onlysrc":
+//                                        e[2] = "按用户源地址分流";
+//                                        break;
+//                                    case "onlydest":
+//                                        e[2] = "按服务器目的地址分流";
+//                                        break;
+//                                    case "srcanddest":
+//                                        e[2] = "按源地址加目的地址分流";
+//                                        break;
+//                                    default:
+//                                        e[2] = "-";
+//                                }
+//                                e.push('<a href="javascript:;" onclick=shuntRulesDelete("' + e[0] + '","' + e[1] + '")><i class="fa fa-times"></i> 删除规则</a>');
+//                            }else{
+//                                e[2] = "-";
+//                                e.push('<a href="javascript:;" onclick=shuntRulesWin("' + e[0] + '","' + e[1] + '")><i class="fa fa-code-fork"></i> 选择规则</a>');
+//                            }
+//                            
+//                        });
+//                       
+//                        fnCallback(data);
+//                    }
+//                });
+//                
+//            }
         });
 
     });
