@@ -38,8 +38,8 @@
                 <div style="display:inline-block; margin-left: 20px;">
                     <label>Smart6设备：</label>
                     <select id="deviceSelect">
-                        <option value="192.168.1.1:1234">192.168.1.1:1234</option>
-                        <option value="192.168.1.1:1234">192.168.1.211:5678</option>
+<!--                        <option value="192.168.1.1:1234">192.168.1.1:1234</option>
+                        <option value="192.168.1.1:1234">192.168.1.211:5678</option>-->
                     </select>
                 </div>
                 <div class="pull-right">
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <!-- 新建Smart6设备弹窗 Start-->
+        <!-- 新建vSmart6设备弹窗 Start-->
         <div class="modal fade stick-up" id="addvSmart6Modal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -74,21 +74,21 @@
                                 <div class="col-sm-12">
                                     <div class="form-group form-group-default">
                                         <label>vSmart6名称</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="cvSName" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="cEnter" type="button" class="btn btn-primary btn-cons" onClick="createDevice()"> 确定</button>
+                        <button id="cEnter" type="button" class="btn btn-primary btn-cons" onClick="createvSmart6()"> 确定</button>
                         <button type="button" class="btn btn-cons" data-dismiss="modal"> 取消</button>
                     </div>
                 </div>
 
             </div>
         </div>
-        <!-- 新建Smart6设备弹窗 End -->
+        <!-- 新建vSmart6设备弹窗 End -->
         
         <!-- 下发配置弹窗 Start-->
         <div class="modal fade stick-up" id="configModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
@@ -102,17 +102,25 @@
                     <div class="modal-body">
                         <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
                         <form role="form">
+                            <div class="row hide">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>vSmart6</label>
+                                        <input id="hvSmart6Name" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>v6lanip</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="v6lanip" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>v6gateway</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="v6gateway" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -120,13 +128,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>v4wanip</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="v4wanip" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>v4gateway</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="v4gateway" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -134,41 +142,62 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>prefA_feature</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="prefA_feature" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefA_nat_start</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <label>prefB_feature</label>
+                                        <input id="prefB_feature" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group form-group-default">
-                                        <label>prefA_feature</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>prefA_nat_start</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="prefA_nat_start" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group form-group-default">
                                         <label>prefA_nat_end</label>
-                                        <input id="vSName" type="text" class="form-control" placeholder="">
+                                        <input id="prefA_nat_end" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
-                                
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>Every_Start_Port</label>
+                                        <input id="Every_Start_Port" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>Port_Len</label>
+                                        <input id="Port_Len" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>Baddr_pool</label>
+                                        <input id="Baddr_pool" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>dns_proxy_mode</label>
+                                        <input id="dns_proxy_mode" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="cEnter" type="button" class="btn btn-primary btn-cons" onClick="createDevice()"> 确定</button>
+                        <button type="button" class="btn btn-primary btn-cons" onClick="configSubmit()"> 确定</button>
                         <button type="button" class="btn btn-cons" data-dismiss="modal"> 取消</button>
                     </div>
                 </div>
@@ -176,6 +205,48 @@
             </div>
         </div>
         <!-- 下发配置弹窗 End -->
+        
+        <!-- 将vSmart6添加到备份组弹窗 Start-->
+        <div class="modal fade stick-up" id="toClusterModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header clearfix ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="p-b-5"> 将vSmart6添加到备份组</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
+                        <form role="form">
+                            <div class="row hide">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>vSmart6</label>
+                                        <input id="hvSmart6Name2" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-group-default">
+                                        <label>备份组</label>
+                                        <select id="cluster" class="form-group">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-cons" onClick="toClusterSubmit()"> 确定</button>
+                        <button type="button" class="btn btn-cons" data-dismiss="modal"> 取消</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 将vSmart6添加到备份组弹窗 End -->
 
     </div>
 
@@ -195,12 +266,16 @@
     
     <script>
         
-    // 创建设备提交
-    function createDevice(){
-        var vSName = $("#vSName").val();
+        var oTable;
+        
+    // 创建vSmart6提交
+    function createvSmart6(){
+        var smart6 = $("#deviceSelect option:selected").val();
+        var vSmart6Name = $("#cvSName").val();
+        console.log(smart6 + "-" + vSmart6Name);
 //        $.ajax({
-//           url:"smart6/smart6DeviceAdd",
-//           data:{ip:ip,port:port},
+//           url:"smart6/vsmart6Add",
+//           data:{smart6:smart6,vSmart6Name:vSmart6Name},
 //           type:"POST",
 //           success:function(data){
 //               if(data == "true"){
@@ -216,11 +291,13 @@
     }
 
     // 删除设备账号
-    function deleteDevice(name){
-        console.log(name);
+    function deletevSmart6(name){
+        var smart6 = $("#deviceSelect option:selected").val();
+        var vSmart6Name = name;
+        console.log(name + "-" + vSmart6Name);
 //        $.ajax({
-//            url :"smart6/smart6DeviceDelete",
-//            data:{id:id},
+//            url :"smart6/vsmart6Delete",
+//            data:{smart6:smart6,vSmart6Name:vSmart6Name},
 //            type:"POST",
 //            success:function(data){
 //                if(data == "true"){
@@ -229,7 +306,7 @@
 //                    alert("删除失败！");
 //                }
 //            },
-//            error:function(data){
+//            error:function(e){
 //                alert(e.message);
 //            }
 //         });
@@ -240,37 +317,135 @@
         console.log(name);
         $("#configModal").modal("show");
         $('#configModal').on('shown.bs.modal', function (e) {
+            $("#hvSmart6Name").val(name);
+        });
+    }
+    
+    // 下发配置提交
+    function configSubmit(){
+        var smart6 = $("#deviceSelect option:selected").val();
+        var vSmart6Name = $("#hvSmart6Name").val();
+        var config = {};
+        config.vSmart6_name = vSmart6Name;
+        config.v6lanip = $("#v6lanip").val();
+        config.v6gateway = $("#v6gateway").val();
+        config.v4wanip = $("#v4wanip").val();
+        config.v4gateway = $("#v4gateway").val();
+        config.prefA_Len = $("#prefA_Len").val();
+        config.prefB_Len = $("#prefB_Len").val();
+        config.prefA_feature = $("#prefA_feature").val();
+        config.prefB_feature = $("#prefB_feature").val();
+        config.prefA_nat_start = $("#prefA_nat_start").val();
+        config.prefA_nat_end = $("#prefA_nat_end").val();
+        config.Every_Start_Port = $("#Every_Start_Port").val();
+        config.Port_Len = $("#Port_Len").val();
+        config.Baddr_pool = $("#Baddr_pool").val();
+        config.dns_proxy_mode = $("#dns_proxy_mode").val();
 //            $.ajax({
-//               url :"smart6/smart6DeviceStatistics",
-//               data:{id:id},
+//               url :"smart6/vsmart6Config",
+//               data:{smart6:smart6,config:config},
 //               type:"POST",
 //               dataType:"JSON",
 //               success:function(data){
-//                   if(data){
-//                       $("#cpu").html(data.cpu);
-//                       $("#memory").html(data.memory);
-//                       $("#flow").html(data.flow);
+//                   if(data == "true"){
+//                      alert("下发配置成功！");
 //                   }else{
-//                       alert("获取数据失败！");
+//                       alert("下发配置失败！");
 //                   }
 //               },
-//               error:function(data){
+//               error:function(e){
 //                   alert(e.message);
 //               }
 //            });
+    }
+    
+    // 将vSmart6添加到备份组弹框
+    function addToCluster(name){
+        console.log(name);
+        $("#toClusterModal").modal("show");
+        $('#toClusterModal').on('shown.bs.modal', function (e) {
+            $("#hvSmart6Name2").val(name);
+            // 获取备份组列表
+            $.ajax({
+//               url:"smart6/clusterList" ,
+               url:"ajax/cluster.txt", 
+               type:"GET",
+               dataType:"json",
+               success:function(data){
+                   var clusterSrc = data.aaData;
+                   var option = "";
+                   $.each(clusterSrc,function(i,e){
+                       option += '<option value = "' + e[0] + '">' + e[0] + '</option>';
+                   });
+                   $("#cluster").append(option);
+               },
+               errror:function(e){
+                   alert(e);
+               }
+            });
         });
     }
-
-    $(function() {
+    
+    // 添加到备份组 提交
+    function toClusterSubmit(){
+        var vSmart6Name = $("#hvSmart6Name2").val();
+        var cluster = $("#cluster option:selected").val();
+        var smart6 = $("#deviceSelect option:selected").val();
+        console.log(vSmart6Name + "-" + cluster + "-" + smart6);
+//        $.ajax({
+//           url:"smart6/clusterCreate",
+//           data:{smart6:smart6,clusterName:cluster,vSmart6Name:vSmart6Name},
+//           type:"POST",
+//           dataType:"json",
+//           success:function(data){
+//               if(data == "true"){
+//                   alert("添加成功！");
+//               }else{
+//                   alert("添加失败！");
+//               }
+//           },
+//           error:function(e){
+//               alert(e);
+//           }
+//        });
+    }
+    
+    // 初始化smart6 select选框
+    function initSmart6s(){
+        $.ajax({
+//            url :"smart6/smart6DeviceList",
+            url:"ajax/data.txt",
+            type:"GET",
+            dataType:"JSON",
+            async:false,
+            success:function(data){
+                if(data){
+                    var smartSrc = data.aaData;
+                    var option = "";
+                    $.each(smartSrc,function(i,e){
+                        option += '<option value="' + e[0] + ',' + e[1] + '">' + e[0] + ':' + e[1] + '</option>';
+                    });
+                    $("#deviceSelect").append(option);
+                }else{
+                    $("#deviceSelect").append('<option value="">获取数据失败..</option>');
+                }
+            },
+            error:function(e){
+                alert(e.message);
+            }
+         });
+    }
+    
+    // 生成vSmart6列表
+    function vSmart6List(smart6){
         
-        // smart6设备选择
-        $("#deviceSelect").change(function(){
-           $("#deviceSelect option:selected").val();
-           window.location.reload();
-        });
-
+        // window.location.reload();
+        if(oTable){
+            oTable.fnDestroy();
+        }
+        
         // jquery.dataTables.js
-        $('#basicTable').dataTable({
+        oTable = $('#basicTable').dataTable({
             "bSort": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -278,8 +453,8 @@
                 "url": "pages/Chinese.json"
             },
             "bProcessing": true,
-            "sAjaxSource": "ajax/vsmart6.txt",
-//            "sAjaxSource": "smart6/smart6DeviceList",
+            "sAjaxSource": "ajax/vsmart6.txt?smart6="+smart6,
+//            "sAjaxSource": "smart6/vsmart6List?smart6="+smart6,
             "aoColumns":[
                 {"sTitle": "vSmart6","width":"160px"},
                 {"sTitle": "状态"},
@@ -318,7 +493,7 @@
                     "width":"100px",
                     "render": function(data,type,full,meta){
                         var name = full[0];
-                        return '<a href="javascript:;" title="下发配置" onclick=config("' + name + '")><i class="fa fa-mail-forward"></i> </a>&nbsp;&nbsp;&nbsp; <a href="javascript:;" title="删除" onclick=deleteDevice("' + name + '")><i class="fa fa-trash-o"></i> </a>';
+                        return '<a href="javascript:;" title="下发配置" onclick=config("' + name + '")><i class="fa fa-mail-forward"></i> </a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="加入到备份组" onclick=addToCluster("' + name + '")><i class="fa fa-plus"></i> </a> &nbsp;&nbsp;&nbsp; <a href="javascript:;" title="删除" onclick=deletevSmart6("' + name + '")><i class="fa fa-trash-o"></i> </a>';
                     }
                 }
             ],
@@ -351,7 +526,18 @@
                 
             }
         });
+    }
 
+    $(function() {
+        initSmart6s();
+        vSmart6List($("#deviceSelect option:selected").val());
+        
+        // smart6设备选择
+        $("#deviceSelect").change(function(){
+            var smart6 = $("#deviceSelect option:selected").val();
+            vSmart6List(smart6);
+        });
+        
     });
     </script>
 </body>

@@ -196,21 +196,26 @@
     function createDevice(){
         var ip = $("#cIp").val();
         var port = $("#cPort").val();
-//        $.ajax({
-//           url:"smart6/smart6DeviceAdd",
-//           data:{ip:ip,port:port},
-//           type:"POST",
-//           success:function(data){
-//               if(data == "true"){
-//                   $("#addSmart6DeviceModal").modal("hide");
-//               }else{
-//                   alert("添加失败");
-//               }
-//           },
-//           error:function(e){
-//               alert(e.message);
-//           }
-//        });
+        if(ip == "" || port == ""){
+            alert("输入不能为空！");
+        }else{
+            console.log(ip+"-"+port);
+    //        $.ajax({
+    //           url:"smart6/smart6DeviceAdd",
+    //           data:{ip:ip,port:port},
+    //           type:"POST",
+    //           success:function(data){
+    //               if(data == "true"){
+    //                   $("#addSmart6DeviceModal").modal("hide");
+    //               }else{
+    //                   alert("添加失败");
+    //               }
+    //           },
+    //           error:function(e){
+    //               alert(e.message);
+    //           }
+    //        });
+        }
     }
 
     // 删除设备账号
@@ -235,9 +240,9 @@
     
     // 查看设备统计信息
     function staticInfo(i,p){
-        console.log(i + "-" + p);
         $("#staticInfoModal").modal("show");
         $('#staticInfoModal').on('shown.bs.modal', function (e) {
+            console.log(i + "-" + p);
 //            $.ajax({
 //               url :"smart6/smart6DeviceStatistics",
 //               data:{ip:i,port:p},
@@ -266,7 +271,7 @@
         $("#shuntRulesModal").modal("show");
     }
     
-    // 下发分流规则
+    // 配置分流规则
     function shuntRules(){
         var rule = $("#rule option:selected").val();
         var ip = $("#shutRulesIp").val();
@@ -289,28 +294,6 @@
 //           }
 //        });
         $("#shuntRulesModal").modal("hide");
-        window.location.reload();
-    }
-    
-    // 删除分流规则
-    function shuntRulesDelete(i,p){
-        console.log("删除分流规则：" + i + " - " + p);
-//        $.ajax({
-//           url :"smart6/smart6ShutRulesDelete",
-//           data:{ip:ip,port:port,rule:rule},
-//           type:"POST",
-//           dataType:"JSON",
-//           success:function(data){
-//               if(data == "true"){
-//                   alert("下发分流成功!");
-//               }else{
-//                   alert("下发分流失败！");
-//               }
-//           },
-//           error:function(e){
-//               alert(e.message);
-//           }
-//        });
         window.location.reload();
     }
 

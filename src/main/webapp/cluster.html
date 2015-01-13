@@ -99,7 +99,7 @@
                     <div class="modal-header clearfix ">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
                         </button>
-                        <h4 class="p-b-5"> 下发配置</h4>
+                        <h4 class="p-b-5"> 添加vSmart6</h4>
                     </div>
                     <div class="modal-body">
                         <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
@@ -148,7 +148,7 @@
     
     <script>
         
-    // 创建备份提交
+    // 创建备份组提交
     function createCluster(){
         var clusterName = $("#clusterName").val();
 //        $.ajax({
@@ -168,8 +168,8 @@
 //        });
     }
 
-    // 删除设备账号
-    function createCluster(name){
+    // 删除备份组
+    function deleteCluster(name){
         console.log(name);
 //        $.ajax({
 //            url :"smart6/smart6DeviceDelete",
@@ -188,7 +188,7 @@
 //         });
     }
     
-    // 下发配置弹窗
+    // 将vSmart6加入到备份组弹窗
     function addv(name){
         console.log(name);
         $("#addvModal").modal("show");
@@ -232,7 +232,7 @@
                 {
                     "sTitle":"操作",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" onclick=addv("' + full[0] + '")><i class="fa fa-plus"></i> 添加vSmart6</a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick=config("' + full[0] + '")><i class="fa fa-search"></i> 查看</a>';
+                        return '<a href="javascript:;" title="删除备份组" onclick=deleteCluster("' + name + '")><i class="fa fa-trash-o"></i> 删除备份组</a>';
                     }
                 }
             ]
