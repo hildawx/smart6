@@ -23,7 +23,7 @@ import net.sf.json.JSONObject;
  *
  * @author Administrator
  */
-@WebServlet(name = "DeviceListServlet", urlPatterns = {"/smart6DeviceList"})
+@WebServlet(name = "DeviceListServlet", urlPatterns = {"/smart6/smart6DeviceList"})
 public class DeviceListServlet extends HttpServlet {
 
     /**

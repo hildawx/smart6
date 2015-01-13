@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "VSmartAdd", urlPatterns = {"/vsmart6Add"})
+@WebServlet(name = "VSmartAdd", urlPatterns = {"/smart6/vsmart6Add"})
 public class VSmartAdd extends HttpServlet {
 
     /**

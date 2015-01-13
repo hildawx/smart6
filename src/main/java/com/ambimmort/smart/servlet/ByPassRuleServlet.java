@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "ByPassRuleServlet", urlPatterns = {"/smart6ShutRules"})
+@WebServlet(name = "ByPassRuleServlet", urlPatterns = {"/smart6/smart6ShutRules"})
 public class ByPassRuleServlet extends HttpServlet {
 
     /**

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "BackupGroupCreateServlet", urlPatterns = {"/clusterCreate"})
+@WebServlet(name = "BackupGroupCreateServlet", urlPatterns = {"/smart6/clusterCreate"})
 public class BackupGroupCreateServlet extends HttpServlet {
 
     /**

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "DeviceStatisticsInfoServlet", urlPatterns = {"/smart6DeviceStatistics"})
+@WebServlet(name = "DeviceStatisticsInfoServlet", urlPatterns = {"/smart6/smart6DeviceStatistics"})
 public class DeviceStatisticsInfoServlet extends HttpServlet {
 
     /**

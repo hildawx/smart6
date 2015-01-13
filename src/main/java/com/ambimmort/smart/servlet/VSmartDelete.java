@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "VSmartDelete", urlPatterns = {"/vsmart6Delete"})
+@WebServlet(name = "VSmartDelete", urlPatterns = {"/smart6/vsmart6Delete"})
 public class VSmartDelete extends HttpServlet {
 
     /**

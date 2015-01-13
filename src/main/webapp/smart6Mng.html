@@ -196,21 +196,21 @@
     function createDevice(){
         var ip = $("#cIp").val();
         var port = $("#cPort").val();
-//        $.ajax({
-//           url:"smart6/smart6DeviceAdd",
-//           data:{ip:ip,port:port},
-//           type:"POST",
-//           success:function(data){
-//               if(data == "true"){
-//                   $("#addSmart6DeviceModal").modal("hide");
-//               }else{
-//                   alert("添加失败");
-//               }
-//           },
-//           error:function(e){
-//               alert(e.message);
-//           }
-//        });
+        $.ajax({
+           url:"smart6/smart6DeviceAdd",
+           data:{ip:ip,port:port},
+           type:"POST",
+           success:function(data){
+               if(data == "true"){
+                   $("#addSmart6DeviceModal").modal("hide");
+               }else{
+                   alert("添加失败");
+               }
+           },
+           error:function(e){
+               alert(e.message);
+           }
+        });
     }
 
     // 删除设备账号

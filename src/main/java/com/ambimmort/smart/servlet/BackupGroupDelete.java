@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "BackupGroupDelete", urlPatterns = {"/clusterDelete"})
+@WebServlet(name = "BackupGroupDelete", urlPatterns = {"/smart6/clusterDelete"})
 public class BackupGroupDelete extends HttpServlet {
 
     /**

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "DeviceDeleteServlet", urlPatterns = {"/smart6DeviceDelete"})
+@WebServlet(name = "DeviceDeleteServlet", urlPatterns = {"/smart6/smart6DeviceDelete"})
 public class DeviceDeleteServlet extends HttpServlet {
 
     /**
