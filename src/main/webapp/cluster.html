@@ -35,6 +35,13 @@
         <div class="panel panel-transparent">
             <div class="panel-heading">
                 <div class="panel-title"> 备份组列表</div>
+                <div style="display:inline-block; margin-left: 20px;">
+                    <label>Smart6设备：</label>
+                    <select id="deviceSelect">
+                        <option value="192.168.1.1,1234">192.168.1.1:1234</option>
+                        <option value="192.168.1.1,1234">192.168.1.211:5678</option>
+                    </select>
+                </div>
                 <div class="pull-right">
                     <div class="col-xs-12">
                         <button class="btn btn-primary btn-cons" id="show-modal" data-toggle="modal" data-target="#addClusterModal"><i class="fa fa-plus"></i> 创建备份组</button>
@@ -64,16 +71,7 @@
                         <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
                         <form role="form">
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-group-default">
-                                        <label>smart6设备</label>
-                                        <select id="deviceSelect">
-                                            <option value="192.168.1.1:1234">192.168.1.1:1234</option>
-                                            <option value="192.168.1.1:1234">192.168.1.211:5678</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group form-group-default">
                                         <label>备份组名</label>
                                         <input id="clusterName" type="text" class="form-control" placeholder="">
@@ -147,17 +145,21 @@
     <script type="text/javascript" src="pages/js/common.js"></script>
     
     <script>
+
+    var oTable;
         
     // 创建备份组提交
     function createCluster(){
         var clusterName = $("#clusterName").val();
+        var smart6 = $("#deviceSelect option:selected").val();
 //        $.ajax({
-//           url:"smart6/smart6DeviceAdd",
-//           data:{ip:ip,port:port},
+//           url:"smart6/clusterCreate",
+//           data:{clusterName:clusterName,smart6:smart6},
 //           type:"POST",
 //           success:function(data){
 //               if(data == "true"){
 //                   $("#addSmart6DeviceModal").modal("hide");
+//                   clusterList(smart6);
 //               }else{
 //                   alert("添加失败");
 //               }
@@ -171,13 +173,16 @@
     // 删除备份组
     function deleteCluster(name){
         console.log(name);
+        var clusterName = name;
+        var smart6 = $("#deviceSelect option:selected").val();
 //        $.ajax({
-//            url :"smart6/smart6DeviceDelete",
-//            data:{id:id},
+//            url :"smart6/clusterDelete",
+//            data:{clusterName:clusterName,smart6:smart6},
 //            type:"POST",
 //            success:function(data){
 //                if(data == "true"){
 //                    alert("删除成功！");
+                    // clusterList(smart6);
 //                }else{
 //                    alert("删除失败！");
 //                }
@@ -214,10 +219,40 @@
         });
     }
 
-    $(function() {
+    // 初始化smart6 select选框
+    function initSmart6s(){
+        $.ajax({
+//            url :"smart6/smart6DeviceList",
+            url:"ajax/data.txt",
+            type:"GET",
+            dataType:"JSON",
+            async:false,
+            success:function(data){
+                if(data){
+                    var smartSrc = data.aaData;
+                    var option = "";
+                    $.each(smartSrc,function(i,e){
+                        option += '<option value="' + e[0] + ',' + e[1] + '">' + e[0] + ':' + e[1] + '</option>';
+                    });
+                    $("#deviceSelect").append(option);
+                }else{
+                    $("#deviceSelect").append('<option value="">获取数据失败..</option>');
+                }
+            },
+            error:function(e){
+                alert(e.message);
+            }
+         });
+    }
+
+    // 生成备份组列表
+    function clusterList(smart6){
+        if(oTable){
+            oTable.fnDestroy();
+        }
 
         // jquery.dataTables.js
-        $('#basicTable').dataTable({
+        oTable = $('#basicTable').dataTable({
             "bSort": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -226,7 +261,7 @@
             },
             "bProcessing": true,
             "sAjaxSource": "ajax/cluster.txt",
-//            "sAjaxSource": "smart6/smart6DeviceList",
+//            "sAjaxSource": "smart6/clusterList?smart6="+smart6,
             "aoColumns":[
                 {"sTitle": "备份组"},
                 {
@@ -236,6 +271,18 @@
                     }
                 }
             ]
+        });
+    }
+
+    $(function() {
+
+        initSmart6s();
+        clusterList($("#deviceSelect option:selected").val());
+
+        // smart6设备选择
+        $("#deviceSelect").change(function(){
+            var smart6 = $("#deviceSelect option:selected").val();
+            clusterList(smart6);
         });
 
     });
