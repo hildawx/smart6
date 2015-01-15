@@ -6,8 +6,11 @@ package com.ambimmort.smart.service;
 
 import com.ambimmort.smart.common.RestClient;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -102,5 +105,103 @@ public class VSmartManageService {
     
     public boolean addvSmartForGroup(String ip, String port, String vSmartName, String groupName) {
         return false;
+    }
+
+    public JSONArray searchICMP(String ip, String port, String vSmartName) {
+        JSONArray rs = new JSONArray();
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(':').append(port).append(VSMART_ICMP_SEARCH).append('&').append(vSmartName);
+        try {
+            String resp = RestClient.getInstance().get(sb.toString());
+            JSONObject rt = JSONArray.fromObject(resp).getJSONObject(0);
+            Iterator<Entry> it = rt.entrySet().iterator();
+            while (it.hasNext()) {
+                JSONArray ob = new JSONArray();
+                Entry entry = it.next();
+                JSONObject item = ((JSONArray)entry.getValue()).getJSONObject(0);
+                ob.add(item.getString("sipv6"));
+                ob.add(item.getString("dipv6"));
+                ob.add(item.getString("sport"));
+                ob.add(item.getString("dport"));
+                ob.add(item.getString("naptport"));
+                rs.add(ob);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
+    public JSONArray searchTCP(String ip, String port, String vSmartName) {
+        JSONArray rs = new JSONArray();
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(':').append(port).append(VSMART_TCP_SEARCH).append('&').append(vSmartName);
+        try {
+            String resp = RestClient.getInstance().get(sb.toString());
+            JSONObject rt = JSONArray.fromObject(resp).getJSONObject(0);
+            Iterator<Entry> it = rt.entrySet().iterator();
+            while (it.hasNext()) {
+                JSONArray ob = new JSONArray();
+                Entry entry = it.next();
+                JSONObject item = ((JSONArray)entry.getValue()).getJSONObject(0);
+                ob.add(item.getString("sipv6"));
+                ob.add(item.getString("dipv6"));
+                ob.add(item.getString("sport"));
+                ob.add(item.getString("dport"));
+                ob.add(item.getString("naptport"));
+                rs.add(ob);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
+    public JSONArray searchUDP(String ip, String port, String vSmartName) {
+        JSONArray rs = new JSONArray();
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(':').append(port).append(VSMART_UDP_SEARCH).append('&').append(vSmartName);
+        try {
+            String resp = RestClient.getInstance().get(sb.toString());
+            JSONObject rt = JSONArray.fromObject(resp).getJSONObject(0);
+            Iterator<Entry> it = rt.entrySet().iterator();
+            while (it.hasNext()) {
+                JSONArray ob = new JSONArray();
+                Entry entry = it.next();
+                JSONObject item = ((JSONArray)entry.getValue()).getJSONObject(0);
+                ob.add(item.getString("sipv6"));
+                ob.add(item.getString("dipv6"));
+                ob.add(item.getString("sport"));
+                ob.add(item.getString("dport"));
+                ob.add(item.getString("naptport"));
+                rs.add(ob);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
+    public JSONArray searchUserTB(String ip, String port, String vSmartName) {
+        JSONArray rs = new JSONArray();
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(':').append(port).append(VSMART_USERTB_SEARCH).append('&').append(vSmartName);
+        try {
+            String resp = RestClient.getInstance().get(sb.toString());
+            JSONObject rt = JSONArray.fromObject(resp).getJSONObject(0);
+            Iterator<Entry> it = rt.entrySet().iterator();
+            while (it.hasNext()) {
+                JSONArray ob = new JSONArray();
+                Entry entry = it.next();
+                JSONObject item = ((JSONArray)entry.getValue()).getJSONObject(0);
+                ob.add(item.getString("User_IPv6"));
+                ob.add(item.getString("NatIp"));
+                ob.add(item.getString("NaptIp"));
+                rs.add(ob);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
     }
 }

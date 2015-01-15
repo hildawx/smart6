@@ -43,8 +43,10 @@ public class RestClient {
     public String post(String uri, String content) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost post = new HttpPost(uri);
-        StringEntity entity = new StringEntity(content, ContentType.create("text/json", "utf-8"));
-        post.setEntity(entity);
+        if (content != null) {
+            StringEntity entity = new StringEntity(content, ContentType.create("text/json", "utf-8"));
+            post.setEntity(entity);
+        }
         CloseableHttpResponse resp = client.execute(post);
         int code = resp.getStatusLine().getStatusCode();
         if (code == 200) {
