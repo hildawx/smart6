@@ -171,6 +171,37 @@ public class VSmartManageService {
         }
         return rs;
     }
+    
+    public JSONObject queryvSmartConfig(String ip, String port, String vSmartName) {
+        JSONObject rs = new JSONObject();
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(':').append(port).append(QUERY_VSMART_CONFIG).append('&').append(vSmartName);
+        try {
+            String resp = RestClient.getInstance().get(sb.toString());
+            JSONObject o = JSONArray.fromObject(resp).getJSONObject(0);
+            rs.put("cluster_name", o.getString("cluster_name"));
+            rs.put("pid", o.getString("pid"));
+            rs.put("v6lanip", o.getString("v6lanip"));
+            rs.put("v6lan_mac", o.getString("v6lan-mac"));
+            rs.put("v6gateway", o.getString("v6gateway"));
+            rs.put("v6gateway_mac", o.getString("v6gateway-mac"));
+            rs.put("v4wanip", o.getString("v4wanip"));
+            rs.put("v4wan_mac", o.getString("v4wan-mac"));
+            rs.put("v4gateway", o.getString("v4gateway"));
+            rs.put("v4gateway_mac", o.getString("v4gateway-mac"));
+            rs.put("prefA_feature_prefA_Len", o.getJSONArray("A").getJSONObject(0).getString("prefA_feature[0]/prefA_Len[0]"));
+            rs.put("Aaddrpool", o.getString("Aaddrpool"));
+            rs.put("prefB_feature_prefB_Len", o.getJSONArray("B").getJSONObject(0).getString("prefB_feature[0]/prefB_Len[0]"));
+            rs.put("Baddrpool", o.getString("Baddrpool"));
+            rs.put("Every_Start_Port", o.getString("Every_Start_Port"));
+            rs.put("Port_Len", o.getString("Port_Len"));
+            rs.put("Port_Unit", o.getString("Port_Unit"));
+            rs.put("dns_proxy_mode", o.getString("dns_proxy_mode"));
+        } catch (IOException ex) {
+            Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
     public JSONObject getSmartStatisticInfo(String ip, String port) {
         JSONObject rs = new JSONObject();

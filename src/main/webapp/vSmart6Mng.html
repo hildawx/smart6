@@ -283,6 +283,164 @@
             </div>
         </div>
         <!-- 流表查看弹窗 End -->
+        
+        <!-- vSmart配置查询弹窗 Start-->
+        <div class="modal fade stick-up" id="vSmartConfigModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header clearfix ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="p-b-5"> vSmart配置</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
+                        <form role="form">
+                            <!--<div class="row hide">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>cluster_name</label>
+                                        <input id="cluster_name" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>-->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>cluster_name</label>
+                                        <input id="cluster_name" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>pid</label>
+                                        <input id="pid" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v6lanip</label>
+                                        <input id="v6lanip" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v6lan_mac</label>
+                                        <input id="v6lan_mac" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v6gateway</label>
+                                        <input id="v6gateway" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v6gateway_mac</label>
+                                        <input id="v6gateway_mac" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v4wanip</label>
+                                        <input id="v4wanip" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v4wan_mac</label>
+                                        <input id="v4wan_mac" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v4gateway</label>
+                                        <input id="v4gateway" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>v4gateway_mac</label>
+                                        <input id="v4gateway_mac" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>prefA_feature/prefA_Len</label>
+                                        <input id="prefA_feature_prefA_Len" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>A_addrpool</label>
+                                        <input id="A_addrpool" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>prefB_feature/prefB_Len</label>
+                                        <input id="prefB_feature_prefB_Len" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>B_addrpool</label>
+                                        <input id="B_addrpool" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>Every_Start_Port</label>
+                                        <input id="Every_Start_Port" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>Port_Len</label>
+                                        <input id="Port_Len" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>Port_Unit</label>
+                                        <input id="Port_Unit" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-group-default">
+                                        <label>dns_proxy_mode</label>
+                                        <input id="dns_proxy_mode" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-cons" onClick="configSubmit()"> 确定</button>
+                        <button type="button" class="btn btn-cons" data-dismiss="modal"> 取消</button>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+        <!-- vSmart配置查询弹窗 End -->
     </div>
 
     <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
@@ -558,6 +716,43 @@
         });
     }
     
+    function viewConfig(name){
+        $("#vSmartConfigModal").modal("show");
+        $("#vSmartConfigModal").on('shown.bs.modal', function(e){
+            var smart6 = $("#deviceSelect option:selected").val();
+            // 刷新数据
+            $.ajax({
+               url:"smart6/vsmartconfigquery?smart6=" + smart6 + "&vSmart6Name=" + name ,
+//               url:"ajax/cluster.txt", 
+               type:"GET",
+               dataType:"json",
+               success:function(data){
+                   $("#vSmartConfigModal #cluster_name").val(data["cluster_name"]);
+                   $("#vSmartConfigModal #pid").val(data["pid"]);
+                   $("#vSmartConfigModal #v6lanip").val(data["v6lanip"]);
+                   $("#vSmartConfigModal #v6lan_mac").val(data["v6lan_mac"]);
+                   $("#vSmartConfigModal #v6gateway").val(data["v6gateway"]);
+                   $("#vSmartConfigModal #v6gateway_mac").val(data["v6gateway_mac"]);
+                   $("#vSmartConfigModal #v4wanip").val(data["v4wanip"]);
+                   $("#vSmartConfigModal #v4wan_mac").val(data["v4wan_mac"]);
+                   $("#vSmartConfigModal #v4gateway").val(data["v4gateway"]);
+                   $("#vSmartConfigModal #v4gateway_mac").val(data["v4gateway_mac"]);
+                   $("#vSmartConfigModal #prefA_feature_prefA_Len").val(data["prefA_feature_prefA_Len"]);
+                   $("#vSmartConfigModal #A_addrpool").val(data["Aaddrpool"]);
+                   $("#vSmartConfigModal #prefB_feature_prefB_Len").val(data["prefB_feature_prefB_Len"]);
+                   $("#vSmartConfigModal #B_addrpool").val(data["Baddrpool"]);
+                   $("#vSmartConfigModal #Every_Start_Port").val(data["Every_Start_Port"]);
+                   $("#vSmartConfigModal #Port_Len").val(data["Port_Len"]);
+                   $("#vSmartConfigModal #Port_Unit").val(data["Port_Unit"]);
+                   $("#vSmartConfigModal #dns_proxy_mode").val(data["dns_proxy_mode"]);
+               },
+               errror:function(e){
+                   alert(e);
+               }
+            });
+        });
+    }
+    
     // 下发配置弹窗
     function config(name){
 //        console.log(name);
@@ -573,20 +768,20 @@
         var vSmart6Name = $("#hvSmart6Name").val();
         var config = {};
         config.vSmart6_name = vSmart6Name;
-        config.v6lanip = $("#v6lanip").val();
-        config.v6gateway = $("#v6gateway").val();
-        config.v4wanip = $("#v4wanip").val();
-        config.v4gateway = $("#v4gateway").val();
-        config.prefA_Len = $("#prefA_Len").val();
-        config.prefB_Len = $("#prefB_Len").val();
-        config.prefA_feature = $("#prefA_feature").val();
-        config.prefB_feature = $("#prefB_feature").val();
-        config.prefA_nat_start = $("#prefA_nat_start").val();
-        config.prefA_nat_end = $("#prefA_nat_end").val();
-        config.Every_Start_Port = $("#Every_Start_Port").val();
-        config.Port_Len = $("#Port_Len").val();
-        config.Baddr_pool = $("#Baddr_pool").val();
-        config.dns_proxy_mode = $("#dns_proxy_mode").val();
+        config.v6lanip = $("#configModal #v6lanip").val();
+        config.v6gateway = $("#configModal #v6gateway").val();
+        config.v4wanip = $("#configModal #v4wanip").val();
+        config.v4gateway = $("#configModal #v4gateway").val();
+        config.prefA_Len = $("#configModal #prefA_Len").val();
+        config.prefB_Len = $("#configModal #prefB_Len").val();
+        config.prefA_feature = $("#configModal #prefA_feature").val();
+        config.prefB_feature = $("#configModal #prefB_feature").val();
+        config.prefA_nat_start = $("#configModal #prefA_nat_start").val();
+        config.prefA_nat_end = $("#configModal #prefA_nat_end").val();
+        config.Every_Start_Port = $("#configModal #Every_Start_Port").val();
+        config.Port_Len = $("#configModal #Port_Len").val();
+        config.Baddr_pool = $("#configModal #Baddr_pool").val();
+        config.dns_proxy_mode = $("#configModal #dns_proxy_mode").val();
             $.ajax({
                url :"smart6/vsmart6Config",
                data:{smart6:smart6,config:JSON.stringify(config)},
@@ -734,7 +929,7 @@
                 {
                     "sTitle":"配置",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" title="查看配置" onclick=config("' + full[0] + '")><i class="fa fa-search"></i> </a>';
+                        return '<a href="javascript:;" title="查看配置" onclick=viewConfig("' + full[0] + '")><i class="fa fa-search"></i> </a>';
                     }
                 },
                 {
