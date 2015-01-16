@@ -4,6 +4,7 @@
  */
 package com.ambimmort.smart.servlet;
 
+import com.ambimmort.smart.service.VSmartManageService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONObject;
 
 /**
  *
@@ -34,12 +36,14 @@ public class DeviceStatisticsInfoServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        String ip = request.getParameter("ip");
+        String port = request.getParameter("port");
         try {
-            
+            JSONObject info = new VSmartManageService().getSmartStatisticInfo(ip, port);
+            out.print(info);
         } finally {            
             out.close();
         }
-        throw new IOException("未实现");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

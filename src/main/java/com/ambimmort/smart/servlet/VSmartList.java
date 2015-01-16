@@ -4,7 +4,6 @@
  */
 package com.ambimmort.smart.servlet;
 
-import com.ambimmort.smart.service.BackupGroupService;
 import com.ambimmort.smart.service.VSmartManageService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,13 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "BackupGroupDelete", urlPatterns = {"/smart6/clusterDelete"})
-public class BackupGroupDelete extends HttpServlet {
+@WebServlet(name = "VSmartList", urlPatterns = {"/smart6/vsmart6List"})
+public class VSmartList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,11 +36,13 @@ public class BackupGroupDelete extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        String[] host = request.getParameter("smart6").split(",");
         try {
-            String[] host = request.getParameter("smart6").split(",");
-            String groupName = request.getParameter("clusterName");
-            boolean flag = new BackupGroupService().deleteBackupGroup(host[0], host[1], groupName);
-            out.print(flag);
+            JSONArray vSmartList = new VSmartManageService().getAllvSmartInfo(host[0], host[1]);
+            JSONObject obj = new JSONObject();
+            obj.put("aaData", vSmartList);
+            out.print(obj);
         } finally {            
             out.close();
         }

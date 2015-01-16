@@ -102,18 +102,18 @@
                         <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
                         <form role="form">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <strong>CPU</strong><br>
                                     <span class="fs-16" id="cpu">49%</span>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <strong>内存</strong><br>
                                     <span class="fs-16" id="memory">49%</span>
                                 </div>
-                                <div class="col-sm-4">
+                                <!--<div class="col-sm-4">
                                     <strong>接口流量</strong><br>
                                     <span class="fs-16" id="flow">512kb/s</span>
-                                </div>
+                                </div>-->
                             </div>
                         </form>
                     </div>
@@ -252,9 +252,8 @@
                dataType:"JSON",
                success:function(data){
                    if(data){
-                       $("#cpu").html(data.cpu);
-                       $("#memory").html(data.memory);
-                       $("#flow").html(data.flow);
+                       $("#cpu").html((data.cpu * 100).toFixed(1) + "%");
+                       $("#memory").html((data.memory * 100).toFixed(1) + "%");
                    }else{
                        alert("获取数据失败！");
                    }

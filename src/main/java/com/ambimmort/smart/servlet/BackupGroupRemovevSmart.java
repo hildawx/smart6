@@ -5,7 +5,6 @@
 package com.ambimmort.smart.servlet;
 
 import com.ambimmort.smart.service.BackupGroupService;
-import com.ambimmort.smart.service.VSmartManageService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "BackupGroupDelete", urlPatterns = {"/smart6/clusterDelete"})
-public class BackupGroupDelete extends HttpServlet {
+@WebServlet(name = "BackupGroupRemovevSmart", urlPatterns = {"/smart6/delCluster"})
+public class BackupGroupRemovevSmart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,10 +34,12 @@ public class BackupGroupDelete extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        String[] host = request.getParameter("smart6").split(",");
+        String clusterName = request.getParameter("clusterName");
+        String vSmartName = request.getParameter("vSmart6Name");
         try {
-            String[] host = request.getParameter("smart6").split(",");
-            String groupName = request.getParameter("clusterName");
-            boolean flag = new BackupGroupService().deleteBackupGroup(host[0], host[1], groupName);
+            boolean flag = new BackupGroupService().removevSmartFromGroup(host[0], host[1], vSmartName, clusterName);
             out.print(flag);
         } finally {            
             out.close();

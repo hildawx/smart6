@@ -275,9 +275,9 @@
                         <table id="flowTable" class="table table-hover table-condensed dataTable no-footer">
                         </table>
                     </div>
-                    <div class="modal-footer">
+                    <!--<div class="modal-footer">
                         <button type="button" class="btn btn-cons" data-dismiss="modal">关闭</button>
-                    </div>
+                    </div>-->
                 </div>
 
             </div>
@@ -308,7 +308,7 @@
     function createvSmart6(){
         var smart6 = $("#deviceSelect option:selected").val();
         var vSmart6Name = $("#cvSName").val();
-        console.log(smart6 + "-" + vSmart6Name);
+        //console.log(smart6 + "-" + vSmart6Name);
         $.ajax({
            url:"smart6/vsmart6Add",
            data:{smart6:smart6,vSmart6Name:vSmart6Name},
@@ -330,7 +330,7 @@
     function deletevSmart6(name){
         var smart6 = $("#deviceSelect option:selected").val();
         var vSmart6Name = name;
-        console.log(name + "-" + vSmart6Name);
+//        console.log(name + "-" + vSmart6Name);
         $.ajax({
             url :"smart6/vsmart6Delete",
             data:{smart6:smart6,vSmart6Name:vSmart6Name},
@@ -560,7 +560,7 @@
     
     // 下发配置弹窗
     function config(name){
-        console.log(name);
+//        console.log(name);
         $("#configModal").modal("show");
         $('#configModal').on('shown.bs.modal', function (e) {
             $("#hvSmart6Name").val(name);
@@ -608,14 +608,15 @@
     
     // 将vSmart6添加到备份组弹框
     function addToCluster(name){
-        console.log(name);
+//        console.log(name);
         $("#toClusterModal").modal("show");
         $('#toClusterModal').on('shown.bs.modal', function (e) {
+            var smart6 = $("#deviceSelect option:selected").val();
             $("#hvSmart6Name2").val(name);
             // 获取备份组列表
             $.ajax({
-//               url:"smart6/clusterList" ,
-               url:"ajax/cluster.txt", 
+               url:"smart6/clusterList?smart6=" + smart6 ,
+//               url:"ajax/cluster.txt", 
                type:"GET",
                dataType:"json",
                success:function(data){
@@ -638,23 +639,24 @@
         var vSmart6Name = $("#hvSmart6Name2").val();
         var cluster = $("#cluster option:selected").val();
         var smart6 = $("#deviceSelect option:selected").val();
-        console.log(vSmart6Name + "-" + cluster + "-" + smart6);
-//        $.ajax({
-//           url:"smart6/clusterCreate",
-//           data:{smart6:smart6,clusterName:cluster,vSmart6Name:vSmart6Name},
-//           type:"POST",
-//           dataType:"json",
-//           success:function(data){
-//               if(data == "true"){
-//                   alert("添加成功！");
-//               }else{
-//                   alert("添加失败！");
-//               }
-//           },
-//           error:function(e){
-//               alert(e);
-//           }
-//        });
+//        console.log(vSmart6Name + "-" + cluster + "-" + smart6);
+        $.ajax({
+           url:"smart6/insertCluster",
+           data:{smart6:smart6,clusterName:cluster,vSmart6Name:vSmart6Name},
+           type:"POST",
+           dataType:"json",
+           success:function(data){
+               if(data == true){
+                   alert("添加成功！");
+                   $("#toClusterModal").modal("hide");
+               }else{
+                   alert("添加失败！");
+               }
+           },
+           error:function(e){
+               alert(e);
+           }
+        });
     }
     
     // 初始化smart6 select选框
@@ -700,8 +702,8 @@
                 "url": "pages/Chinese.json"
             },
             "bProcessing": true,
-            "sAjaxSource": "ajax/vsmart6.txt?smart6="+smart6,
-//            "sAjaxSource": "smart6/vsmart6List?smart6="+smart6,
+//            "sAjaxSource": "ajax/vsmart6.txt?smart6="+smart6,
+            "sAjaxSource": "smart6/vsmart6List?smart6="+smart6,
             "aoColumns":[
                 {"sTitle": "vSmart6","width":"160px"},
                 {"sTitle": "状态"},

@@ -4,6 +4,7 @@
  */
 package com.ambimmort.smart.servlet;
 
+import com.ambimmort.smart.service.BackupGroupService;
 import com.ambimmort.smart.service.VSmartManageService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name = "BackupGroupCreateServlet", urlPatterns = {"/smart6/clusterCreate"})
-public class BackupGroupCreateServlet extends HttpServlet {
+@WebServlet(name = "BackupGroupCreate", urlPatterns = {"/smart6/clusterCreate"})
+public class BackupGroupCreate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,7 +38,7 @@ public class BackupGroupCreateServlet extends HttpServlet {
         try {
             String[] host = request.getParameter("smart6").split(",");
             String groupName = request.getParameter("clusterName");
-            boolean flag = new VSmartManageService().createBackupGroup(host[0], host[1], groupName);
+            boolean flag = new BackupGroupService().createBackupGroup(host[0], host[1], groupName);
             out.print(flag);
         } finally {            
             out.close();
