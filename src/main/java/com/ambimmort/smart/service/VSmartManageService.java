@@ -25,7 +25,7 @@ public class VSmartManageService {
     public static String VSMART_ICMP_SEARCH = "/gn/vsmart6/icmp/flowtb/query/json";
     public static String VSMART_TCP_SEARCH = "/gn/vsmart6/tcp/flowtb/query/json";
     public static String VSMART_UDP_SEARCH = "/gn/vsmart6/udp/flowtb/query/json";
-    public static String VSMART_USERTB_SEARCH = "/gn/vsmart6/uesrtb/query/json";
+    public static String VSMART_USERTB_SEARCH = "/gn/vsmart6/usertb/query/json";
     public static String VSMART_STATUS = "/gn/vsmart6/state/query/json";
     public static String QUERY_VSMART_CONFIG = "/gn/vsmart6/conf/query/json";
     public static String VSMART_GROUP_STATE = "/gn/vsmart6/state/query/json";

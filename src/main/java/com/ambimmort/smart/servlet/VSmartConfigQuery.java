@@ -37,7 +37,7 @@ public class VSmartConfigQuery extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         String[] host = request.getParameter("smart6").split(",");
-        String vSmartName = request.getParameter("vSamrt6Name");
+        String vSmartName = request.getParameter("vSmart6Name");
         try {
             JSONObject obj = new VSmartManageService().queryvSmartConfig(host[0], host[1], vSmartName);
             out.print(obj);

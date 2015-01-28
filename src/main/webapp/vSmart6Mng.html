@@ -474,6 +474,7 @@
            success:function(data){
                if(data == "true"){
                    $("#addvSmart6Modal").modal("hide");
+                   vSmart6List($("#deviceSelect option:selected").val());
                }else{
                    alert("添加失败");
                }
@@ -496,6 +497,7 @@
             success:function(data){
                 if(data == "true"){
                     alert("删除成功！");
+                    vSmart6List($("#deviceSelect option:selected").val());
                 }else{
                     alert("删除失败！");
                 }
@@ -508,29 +510,96 @@
     
     // 查看流表弹窗 flag-查看流表类型，1代表ICMP，2代表TCP，3代表UDP，4代表userTB
     function viewFlow (name, flag) {
+        $("#viewFlowModal").data("data", {name:name, flag:flag});
         $("#viewFlowModal").modal("show");
+    }
+    
+    function registEventListener(){
+        $('#toClusterModal').on('shown.bs.modal', function (e) {
+            var smart6 = $("#deviceSelect option:selected").val();
+            var data = $(this).data("data");
+            $("#hvSmart6Name2").val(data.name);
+            // 获取备份组列表
+            $.ajax({
+               url:"smart6/clusterList?smart6=" + smart6 ,
+//               url:"ajax/cluster.txt", 
+               type:"GET",
+               dataType:"json",
+               success:function(data){
+                   var clusterSrc = data.aaData;
+                   var option = "";
+                   $.each(clusterSrc,function(i,e){
+                       option += '<option value = "' + e[0] + '">' + e[0] + '</option>';
+                   });
+                   $("#cluster").append(option);
+               },
+               errror:function(e){
+                   alert(e);
+               }
+            });
+        });
+        $('#configModal').on('shown.bs.modal', function (e) {
+            var data = $(this).data("data");
+            $("#hvSmart6Name").val(data.name);
+        });
+        $("#vSmartConfigModal").on('shown.bs.modal', function(e){
+            var smart6 = $("#deviceSelect option:selected").val();
+            var data = $(this).data("data");
+            // 刷新数据
+            $.ajax({
+               url:"smart6/vsmartconfigquery?smart6=" + smart6 + "&vSmart6Name=" + data.name ,
+//               url:"ajax/cluster.txt", 
+               type:"GET",
+               dataType:"json",
+               success:function(data){
+                   $("#vSmartConfigModal #cluster_name").val(data["cluster_name"]);
+                   $("#vSmartConfigModal #pid").val(data["pid"]);
+                   $("#vSmartConfigModal #v6lanip").val(data["v6lanip"]);
+                   $("#vSmartConfigModal #v6lan_mac").val(data["v6lan_mac"]);
+                   $("#vSmartConfigModal #v6gateway").val(data["v6gateway"]);
+                   $("#vSmartConfigModal #v6gateway_mac").val(data["v6gateway_mac"]);
+                   $("#vSmartConfigModal #v4wanip").val(data["v4wanip"]);
+                   $("#vSmartConfigModal #v4wan_mac").val(data["v4wan_mac"]);
+                   $("#vSmartConfigModal #v4gateway").val(data["v4gateway"]);
+                   $("#vSmartConfigModal #v4gateway_mac").val(data["v4gateway_mac"]);
+                   $("#vSmartConfigModal #prefA_feature_prefA_Len").val(data["prefA_feature_prefA_Len"]);
+                   $("#vSmartConfigModal #A_addrpool").val(data["Aaddrpool"]);
+                   $("#vSmartConfigModal #prefB_feature_prefB_Len").val(data["prefB_feature_prefB_Len"]);
+                   $("#vSmartConfigModal #B_addrpool").val(data["Baddrpool"]);
+                   $("#vSmartConfigModal #Every_Start_Port").val(data["Every_Start_Port"]);
+                   $("#vSmartConfigModal #Port_Len").val(data["Port_Len"]);
+                   $("#vSmartConfigModal #Port_Unit").val(data["Port_Unit"]);
+                   $("#vSmartConfigModal #dns_proxy_mode").val(data["dns_proxy_mode"]);
+               },
+               errror:function(e){
+                   alert(e);
+               }
+            });
+        });
+        
         $("#viewFlowModal").on("shown.bs.modal", function(e){
+            var data = $(this).data("data");
             var smart6 = $("#deviceSelect option:selected").val();;
-            switch(flag) {
+            switch(data.flag) {
                 case 1:
                     // ICPM流表
                     $("#viewFlowModal .modal-header h4").html("ICMP流表查看");
-                    refreshICMPFlowTable(smart6, name);
+                    refreshICMPFlowTable(smart6, data.name);
                     break;
                 case 2:
                     // TCP流表
                     $("#viewFlowModal .modal-header h4").html("TCP流表查看");
-                    refreshTCPFlowTable(smart6, name);
+                    refreshTCPFlowTable(smart6, data.name);
                     break;
                 case 3:
                     // UDP流表
                     $("#viewFlowModal .modal-header h4").html("UDP流表查看");
-                    refreshUDPFlowTable(smart6, name);
+                    refreshUDPFlowTable(smart6, data.name);
                     break;
                 case 4:
                     // userTB
                     $("#viewFlowModal .modal-header h4").html("userTB查看");
-                    refreshUserTBFlowTable(smart6, name);
+                    refreshUserTBFlowTable(smart6, data.name);
                     break;
             }
         });
@@ -710,56 +779,22 @@
             "sAjaxSource": "smart6/usertbsearch?smart6="+smart6 + "&vSmart6Name=" + vName,
             "aoColumns":[
                 {"sTitle": "User_IPv6","width":"40%"},
-                {"sTitle": "30%"},
-                {"sTitle": "30%"}
+                {"sTitle": "NatIP", "width":"30%"},
+                {"sTitle": "NaptIP", "width":"30%"}
             ]
         });
     }
     
     function viewConfig(name){
+        $("#vSmartConfigModal").data("data", {name:name});
         $("#vSmartConfigModal").modal("show");
-        $("#vSmartConfigModal").on('shown.bs.modal', function(e){
-            var smart6 = $("#deviceSelect option:selected").val();
-            // 刷新数据
-            $.ajax({
-               url:"smart6/vsmartconfigquery?smart6=" + smart6 + "&vSmart6Name=" + name ,
-//               url:"ajax/cluster.txt", 
-               type:"GET",
-               dataType:"json",
-               success:function(data){
-                   $("#vSmartConfigModal #cluster_name").val(data["cluster_name"]);
-                   $("#vSmartConfigModal #pid").val(data["pid"]);
-                   $("#vSmartConfigModal #v6lanip").val(data["v6lanip"]);
-                   $("#vSmartConfigModal #v6lan_mac").val(data["v6lan_mac"]);
-                   $("#vSmartConfigModal #v6gateway").val(data["v6gateway"]);
-                   $("#vSmartConfigModal #v6gateway_mac").val(data["v6gateway_mac"]);
-                   $("#vSmartConfigModal #v4wanip").val(data["v4wanip"]);
-                   $("#vSmartConfigModal #v4wan_mac").val(data["v4wan_mac"]);
-                   $("#vSmartConfigModal #v4gateway").val(data["v4gateway"]);
-                   $("#vSmartConfigModal #v4gateway_mac").val(data["v4gateway_mac"]);
-                   $("#vSmartConfigModal #prefA_feature_prefA_Len").val(data["prefA_feature_prefA_Len"]);
-                   $("#vSmartConfigModal #A_addrpool").val(data["Aaddrpool"]);
-                   $("#vSmartConfigModal #prefB_feature_prefB_Len").val(data["prefB_feature_prefB_Len"]);
-                   $("#vSmartConfigModal #B_addrpool").val(data["Baddrpool"]);
-                   $("#vSmartConfigModal #Every_Start_Port").val(data["Every_Start_Port"]);
-                   $("#vSmartConfigModal #Port_Len").val(data["Port_Len"]);
-                   $("#vSmartConfigModal #Port_Unit").val(data["Port_Unit"]);
-                   $("#vSmartConfigModal #dns_proxy_mode").val(data["dns_proxy_mode"]);
-               },
-               errror:function(e){
-                   alert(e);
-               }
-            });
-        });
     }
     
     // 下发配置弹窗
     function config(name){
 //        console.log(name);
+        $("#configModal").data("data", {name:name});
         $("#configModal").modal("show");
-        $('#configModal').on('shown.bs.modal', function (e) {
-            $("#hvSmart6Name").val(name);
-        });
     }
     
     // 下发配置提交
@@ -804,29 +839,8 @@
     // 将vSmart6添加到备份组弹框
     function addToCluster(name){
 //        console.log(name);
+        $("#toClusterModal").data("data", {name:name});
         $("#toClusterModal").modal("show");
-        $('#toClusterModal').on('shown.bs.modal', function (e) {
-            var smart6 = $("#deviceSelect option:selected").val();
-            $("#hvSmart6Name2").val(name);
-            // 获取备份组列表
-            $.ajax({
-               url:"smart6/clusterList?smart6=" + smart6 ,
-//               url:"ajax/cluster.txt", 
-               type:"GET",
-               dataType:"json",
-               success:function(data){
-                   var clusterSrc = data.aaData;
-                   var option = "";
-                   $.each(clusterSrc,function(i,e){
-                       option += '<option value = "' + e[0] + '">' + e[0] + '</option>';
-                   });
-                   $("#cluster").append(option);
-               },
-               errror:function(e){
-                   alert(e);
-               }
-            });
-        });
     }
     
     // 添加到备份组 提交
@@ -844,6 +858,7 @@
                if(data == true){
                    alert("添加成功！");
                    $("#toClusterModal").modal("hide");
+                   vSmart6List($("#deviceSelect option:selected").val());
                }else{
                    alert("添加失败！");
                }
@@ -905,31 +920,31 @@
                 {
                     "sTitle":"icmp",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" title="查看ICMP流表" onclick=\'viewFlow("' + full[0] + '", 1)\'><i class="fa fa-search"></i> </a>';
+                        return '<a title="查看ICMP流表" href=\'javascript:viewFlow("' + full[0] + '", 1)\'><i class="fa fa-search"></i> </a>';
                     }
                 },
                 {
                     "sTitle":"tcp",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" title="查看TCP流表" onclick=\'viewFlow("' + full[0] + '", 2)\'><i class="fa fa-search"></i> </a>';
+                        return '<a title="查看TCP流表" href=\'javascript:viewFlow("' + full[0] + '", 2)\'><i class="fa fa-search"></i> </a>';
                     }
                 },
                 {
                     "sTitle":"udp",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" title="查看UDP流表" onclick=\'viewFlow("' + full[0] + '", 3)\'><i class="fa fa-search"></i> </a>';
+                        return '<a title="查看UDP流表" href=\'javascript:viewFlow("' + full[0] + '", 3)\'><i class="fa fa-search"></i> </a>';
                     }
                 },
                 {
                     "sTitle":"userTb",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" title="查看userTB" onclick=\'viewFlow("' + full[0] + '", 4)\'><i class="fa fa-search"></i> </a>';
+                        return '<a title="查看userTB" href=\'javascript:viewFlow("' + full[0] + '", 4)\'><i class="fa fa-search"></i> </a>';
                     }
                 },
                 {
                     "sTitle":"配置",
                     "render":function(data,type,full,meta){
-                        return '<a href="javascript:;" title="查看配置" onclick=viewConfig("' + full[0] + '")><i class="fa fa-search"></i> </a>';
+                        return '<a title="查看配置" onclick=\'javascript:viewConfig("' + full[0] + '")\'><i class="fa fa-search"></i> </a>';
                     }
                 },
                 {
@@ -973,6 +988,7 @@
     }
 
     $(function() {
+        registEventListener();
         initSmart6s();
         vSmart6List($("#deviceSelect option:selected").val());
         
