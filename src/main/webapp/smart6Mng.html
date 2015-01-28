@@ -242,27 +242,8 @@
     
     // 查看设备统计信息
     function staticInfo(i,p){
+        $("#staticInfoModal").data("data", {ip: i, port: p});
         $("#staticInfoModal").modal("show");
-        $('#staticInfoModal').on('shown.bs.modal', function (e) {
-            console.log(i + "-" + p);
-            $.ajax({
-               url :"smart6/smart6DeviceStatistics",
-               data:{ip:i,port:p},
-               type:"POST",
-               dataType:"JSON",
-               success:function(data){
-                   if(data){
-                       $("#cpu").html((data.cpu * 100).toFixed(1) + "%");
-                       $("#memory").html((data.memory * 100).toFixed(1) + "%");
-                   }else{
-                       alert("获取数据失败！");
-                   }
-               },
-               error:function(data){
-                   alert(e.message);
-               }
-            });
-        });
     }
     
     // 选择分流规则
@@ -295,6 +276,30 @@
            error:function(e){
                alert(e.message);
            }
+        });
+    }
+    
+    function registEventListener(){
+        $('#staticInfoModal').on('shown.bs.modal', function (e) {
+            var param = $(this).data("data");
+            //console.log(param.ip + "-" + param.port);
+            $.ajax({
+               url :"smart6/smart6DeviceStatistics",
+               data:param,
+               type:"POST",
+               dataType:"JSON",
+               success:function(data){
+                   if(data){
+                       $("#cpu").html((data.cpu * 100).toFixed(1) + "%");
+                       $("#memory").html((data.memory * 100).toFixed(1) + "%");
+                   }else{
+                       alert("获取数据失败！");
+                   }
+               },
+               error:function(e){
+                   alert(e.message);
+               }
+            });
         });
     }
 
