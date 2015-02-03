@@ -32,15 +32,54 @@ public class DeviceDao {
     }
     
     public void delete(Device device) throws SQLException {
-        PreparedStatement pStat = conn.prepareStatement("delete from device where `ip_addr` = ? and `ip_port` = ?");
+        PreparedStatement pStat = conn.prepareStatement("delete from device where `ip_addr` = ? and `ip_port` = ? and `device_type` = ?");
         pStat.setString(1, device.getIpAddress());
         pStat.setInt(2, device.getIpPort());
+        pStat.setInt(3, device.getDeviceType());
         pStat.executeUpdate();
     }
     
     public List<Device> queryAll() throws SQLException {
         List<Device> devices = null;
         PreparedStatement pStat = conn.prepareStatement("select `id`, `ip_addr`, `ip_port`, `device_type` from device");
+        ResultSet rs = pStat.executeQuery();
+        while (rs.next()) {
+            if (devices == null) {
+                devices = new ArrayList<Device>();
+            }
+            Device device = new Device();
+            device.setId(rs.getInt("id"));
+            device.setIpAddress(rs.getString("ip_addr"));
+            device.setIpPort(rs.getInt("ip_port"));
+            device.setDeviceType(rs.getInt("device_type"));
+            devices.add(device);
+        }
+        rs.close();
+        return devices;
+    }
+    
+    public List<Device> querySmart() throws SQLException{
+        List<Device> devices = null;
+        PreparedStatement pStat = conn.prepareStatement("select `id`, `ip_addr`, `ip_port`, `device_type` from device where device_type = 1");
+        ResultSet rs = pStat.executeQuery();
+        while (rs.next()) {
+            if (devices == null) {
+                devices = new ArrayList<Device>();
+            }
+            Device device = new Device();
+            device.setId(rs.getInt("id"));
+            device.setIpAddress(rs.getString("ip_addr"));
+            device.setIpPort(rs.getInt("ip_port"));
+            device.setDeviceType(rs.getInt("device_type"));
+            devices.add(device);
+        }
+        rs.close();
+        return devices;
+    }
+
+    public List<Device> queryEqualizer() throws SQLException{
+        List<Device> devices = null;
+        PreparedStatement pStat = conn.prepareStatement("select `id`, `ip_addr`, `ip_port`, `device_type` from device where device_type = 2");
         ResultSet rs = pStat.executeQuery();
         while (rs.next()) {
             if (devices == null) {

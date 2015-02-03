@@ -26,6 +26,54 @@ public class DeviceService {
     public DeviceService(Connection conn) {
         this.deviceDao = new DeviceDao(conn);
     }
+    
+    public boolean addEqualizer(String ip, String port) {
+        Device device = new Device();
+        device.setIpAddress(ip);
+        device.setIpPort(Integer.parseInt(port));
+        device.setDeviceType(2);
+        try {
+            deviceDao.add(device);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public boolean delEqualizer(String ip, String port) {
+        Device device = new Device();
+        device.setIpAddress(ip);
+        device.setIpPort(Integer.parseInt(port));
+        device.setDeviceType(2);
+        try {
+            deviceDao.delete(device);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public JSONObject getEqualizerList() {
+        JSONObject obj = new JSONObject();
+        JSONArray data = new JSONArray();
+        try {
+            List<Device> deviceList = deviceDao.queryEqualizer();
+            if (deviceList != null) {
+                Iterator<Device> it = deviceList.iterator();
+                while (it.hasNext()) {
+                    JSONArray item = new JSONArray();
+                    Device device = it.next();
+                    item.add(device.getIpAddress());
+                    item.add(device.getIpPort());
+                    data.add(item);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeviceService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        obj.put("aaData", data);
+        return obj;
+    }
 
     public boolean addDevice(String ip, String port) {
         Device device = new Device();
@@ -55,7 +103,7 @@ public class DeviceService {
         JSONObject obj = new JSONObject();
         JSONArray data = new JSONArray();
         try {
-            List<Device> deviceList = deviceDao.queryAll();
+            List<Device> deviceList = deviceDao.querySmart();
             if (deviceList != null) {
                 Iterator<Device> it = deviceList.iterator();
                 while (it.hasNext()) {

@@ -113,13 +113,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v6lanip</label>
+                                        <label>LAN口IPv6地址</label>
                                         <input id="v6lanip" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v6gateway</label>
+                                        <label>LAN口网关</label>
                                         <input id="v6gateway" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -127,13 +127,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v4wanip</label>
+                                        <label>WAN口IPv4地址</label>
                                         <input id="v4wanip" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v4gateway</label>
+                                        <label>WAN口网关</label>
                                         <input id="v4gateway" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -141,13 +141,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefA_Len</label>
+                                        <label>A模式前缀长度</label>
                                         <input id="prefA_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefB_Len</label>
+                                        <label>B模式前缀长度</label>
                                         <input id="prefB_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -155,13 +155,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefA_feature</label>
+                                        <label>A模式前缀</label>
                                         <input id="prefA_feature" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefB_feature</label>
+                                        <label>B模式前缀</label>
                                         <input id="prefB_feature" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -169,13 +169,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefA_nat_start</label>
+                                        <label>A模式地址池起始地址</label>
                                         <input id="prefA_nat_start" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefA_nat_end</label>
+                                        <label>A模式地址池结束地址</label>
                                         <input id="prefA_nat_end" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -183,13 +183,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>Every_Start_Port</label>
+                                        <label>起始端口</label>
                                         <input id="Every_Start_Port" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>Port_Len</label>
+                                        <label>每端口单元单口数</label>
                                         <input id="Port_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -197,13 +197,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>Baddr_pool</label>
+                                        <label>B模式地址池</label>
                                         <input id="Baddr_pool" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>dns_proxy_mode</label>
+                                        <label>DNS代理</label>
                                         <input id="dns_proxy_mode" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -284,6 +284,28 @@
         </div>
         <!-- 流表查看弹窗 End -->
         
+        <!-- 用户表查看弹窗 Start-->
+        <div class="modal fade stick-up" id="userTBModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header clearfix ">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                        </button>
+                        <h4 class="p-b-5">userTB查看</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="usertbTable" class="table table-hover table-condensed dataTable no-footer">
+                        </table>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-cons" data-dismiss="modal">关闭</button>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+        <!-- 用户表查看弹窗 End -->
+        
         <!-- vSmart配置查询弹窗 Start-->
         <div class="modal fade stick-up" id="vSmartConfigModal" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
             <div class="modal-dialog">
@@ -307,13 +329,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>cluster_name</label>
+                                        <label>备份组名</label>
                                         <input id="cluster_name" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>pid</label>
+                                        <label>进程ID</label>
                                         <input id="pid" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -321,13 +343,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v6lanip</label>
+                                        <label>LAN口IPv6地址</label>
                                         <input id="v6lanip" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v6lan_mac</label>
+                                        <label>LAN口MAC地址</label>
                                         <input id="v6lan_mac" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -335,13 +357,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v6gateway</label>
+                                        <label>LAN口网关</label>
                                         <input id="v6gateway" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v6gateway_mac</label>
+                                        <label>LAN口网关MAC地址</label>
                                         <input id="v6gateway_mac" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -349,13 +371,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v4wanip</label>
+                                        <label>WAN口IPv4地址</label>
                                         <input id="v4wanip" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v4wan_mac</label>
+                                        <label>WAN口MAC地址</label>
                                         <input id="v4wan_mac" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -363,13 +385,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v4gateway</label>
+                                        <label>WAN口网关</label>
                                         <input id="v4gateway" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>v4gateway_mac</label>
+                                        <label>WAN口网关MAC地址</label>
                                         <input id="v4gateway_mac" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -377,13 +399,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefA_feature/prefA_Len</label>
+                                        <label>A模式前缀及长度</label>
                                         <input id="prefA_feature_prefA_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>A_addrpool</label>
+                                        <label>A模式地址池</label>
                                         <input id="A_addrpool" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -391,13 +413,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>prefB_feature/prefB_Len</label>
+                                        <label>B模式前缀及长度</label>
                                         <input id="prefB_feature_prefB_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>B_addrpool</label>
+                                        <label>B模式地址池</label>
                                         <input id="B_addrpool" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -405,13 +427,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>Every_Start_Port</label>
+                                        <label>起始端口</label>
                                         <input id="Every_Start_Port" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>Port_Len</label>
+                                        <label>每端口单元单口数</label>
                                         <input id="Port_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -419,13 +441,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>Port_Unit</label>
+                                        <label>端口单元数</label>
                                         <input id="Port_Unit" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>dns_proxy_mode</label>
+                                        <label>DNS代理</label>
                                         <input id="dns_proxy_mode" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -461,6 +483,7 @@
         
         var oTable;
         var fTable;
+        var userTable;
         
     // 创建vSmart6提交
     function createvSmart6(){
@@ -510,8 +533,13 @@
     
     // 查看流表弹窗 flag-查看流表类型，1代表ICMP，2代表TCP，3代表UDP，4代表userTB
     function viewFlow (name, flag) {
-        $("#viewFlowModal").data("data", {name:name, flag:flag});
-        $("#viewFlowModal").modal("show");
+        if (flag == 4) {
+            $("#userTBModal").data("data", {name:name, flag:flag});
+            $("#userTBModal").modal('show');
+        } else {
+            $("#viewFlowModal").data("data", {name:name, flag:flag});
+            $("#viewFlowModal").modal("show");
+        }
     }
     
     function registEventListener(){
@@ -539,8 +567,32 @@
             });
         });
         $('#configModal').on('shown.bs.modal', function (e) {
+            var smart6 = $("#deviceSelect option:selected").val();
             var data = $(this).data("data");
             $("#hvSmart6Name").val(data.name);
+            $.ajax({
+                url:"smart6/vsmart6Config/get?smart6=" + smart6 + "&vSmart6Name=" + data.name,
+                type:"GET",
+                dataType:"json",
+                success:function(config){
+                    if (config) {
+                        $("#configModal #v6lanip").val(config.v6lanip);
+                        $("#configModal #v6gateway").val(config.v6gateway);
+                        $("#configModal #v4wanip").val(config.v4wanip);
+                        $("#configModal #v4gateway").val(config.v4gateway);
+                        $("#configModal #prefA_Len").val(config.prefA_Len);
+                        $("#configModal #prefB_Len").val(config.prefB_Len);
+                        $("#configModal #prefA_feature").val(config.prefA_feature);
+                        $("#configModal #prefB_feature").val(config.prefB_feature);
+                        $("#configModal #prefA_nat_start").val(config.prefA_nat_start);
+                        $("#configModal #prefA_nat_end").val(config.prefA_nat_end);
+                        $("#configModal #Every_Start_Port").val(config.Every_Start_Port);
+                        $("#configModal #Port_Len").val(config.Port_Len);
+                        $("#configModal #Baddr_pool").val(config.Baddr_pool);
+                        $("#configModal #dns_proxy_mode").val(config.dns_proxy_mode);
+                    }
+                }
+            });
         });
         $("#vSmartConfigModal").on('shown.bs.modal', function(e){
             var smart6 = $("#deviceSelect option:selected").val();
@@ -577,9 +629,16 @@
             });
         });
         
+        $("#userTBModal").on("shown.bs.modal", function(e){
+            var data = $(this).data("data");
+            var smart6 = $("#deviceSelect option:selected").val();
+            $("#userTBModal .modal-header h4").html("userTB查看");
+            refreshUserTBFlowTable(smart6, data.name);
+        });
+        
         $("#viewFlowModal").on("shown.bs.modal", function(e){
             var data = $(this).data("data");
-            var smart6 = $("#deviceSelect option:selected").val();;
+            var smart6 = $("#deviceSelect option:selected").val();
             switch(data.flag) {
                 case 1:
                     // ICPM流表
@@ -595,11 +654,6 @@
                     // UDP流表
                     $("#viewFlowModal .modal-header h4").html("UDP流表查看");
                     refreshUDPFlowTable(smart6, data.name);
-                    break;
-                case 4:
-                    // userTB
-                    $("#viewFlowModal .modal-header h4").html("userTB查看");
-                    refreshUserTBFlowTable(smart6, data.name);
                     break;
             }
         });
@@ -625,11 +679,11 @@
 //            "sAjaxSource": "ajax/flow.txt?smart6="+smart6,
             "sAjaxSource": "smart6/icmpsearch?smart6="+smart6 + "&vSmart6Name=" + vName,
             "aoColumns":[
-                {"sTitle": "sipv6", "width": "30%"},
-                {"sTitle": "dipv6", "width": "30%"},
-                {"sTitle": "sport", "width": "13%"},
-                {"sTitle": "dport", "width": "13%"},
-                {"sTitle": "naptport", "width": "14%"}
+                {"sTitle": "源IPv6地址", "width": "30%"},
+                {"sTitle": "目的IPv6地址", "width": "30%"},
+                {"sTitle": "源端口", "width": "13%"},
+                {"sTitle": "目的端口", "width": "13%"},
+                {"sTitle": "NAPT后的端口", "width": "14%"}
                 /*{
                     "sTitle":"icmp",
                     "render":function(data,type,full,meta){
@@ -720,11 +774,11 @@
 //            "sAjaxSource": "ajax/flow.txt?smart6="+smart6,
             "sAjaxSource": "smart6/tcpsearch?smart6="+smart6 + "&vSmart6Name=" + vName,
             "aoColumns":[
-                {"sTitle": "sipv6", "width": "30%"},
-                {"sTitle": "dipv6", "width": "30%"},
-                {"sTitle": "sport", "width": "13%"},
-                {"sTitle": "dport", "width": "13%"},
-                {"sTitle": "naptport", "width": "14%"}
+                {"sTitle": "源IPv6地址", "width": "30%"},
+                {"sTitle": "目的IPv6地址", "width": "30%"},
+                {"sTitle": "源端口", "width": "13%"},
+                {"sTitle": "目的端口", "width": "13%"},
+                {"sTitle": "NAPT后的端口", "width": "14%"}
             ]
         });
     }
@@ -738,7 +792,7 @@
         }
         
         // jquery.dataTables.js
-        fTable = $('#flowTable').dataTable({
+        /**/fTable = $('#flowTable').dataTable({
             "bSort": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -749,11 +803,11 @@
 //            "sAjaxSource": "ajax/flow.txt?smart6="+smart6,
             "sAjaxSource": "smart6/udpsearch?smart6="+smart6 + "&vSmart6Name=" + vName,
             "aoColumns":[
-                {"sTitle": "sipv6", "width": "30%"},
-                {"sTitle": "dipv6", "width": "30%"},
-                {"sTitle": "sport", "width": "13%"},
-                {"sTitle": "dport", "width": "13%"},
-                {"sTitle": "naptport", "width": "14%"}
+                {"sTitle": "源IPv6地址", "width": "30%"},
+                {"sTitle": "目的IPv6地址", "width": "30%"},
+                {"sTitle": "源端口", "width": "13%"},
+                {"sTitle": "目的端口", "width": "13%"},
+                {"sTitle": "NAPT后的端口", "width": "14%"}
             ]
         });
     }
@@ -762,12 +816,12 @@
     function refreshUserTBFlowTable(smart6, vName){
         
         // window.location.reload();
-        if(fTable){
-            fTable.fnDestroy();
+        if(userTable){
+            userTable.fnDestroy();
         }
         
         // jquery.dataTables.js
-        fTable = $('#flowTable').dataTable({
+        userTable = $('#usertbTable').dataTable({
             "bSort": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -778,9 +832,9 @@
 //            "sAjaxSource": "ajax/flow.txt?smart6="+smart6,
             "sAjaxSource": "smart6/usertbsearch?smart6="+smart6 + "&vSmart6Name=" + vName,
             "aoColumns":[
-                {"sTitle": "User_IPv6","width":"40%"},
-                {"sTitle": "NatIP", "width":"30%"},
-                {"sTitle": "NaptIP", "width":"30%"}
+                {"sTitle": "用户IPv6地址","width":"40%"},
+                {"sTitle": "NAT后的IPv4地址", "width":"30%"},
+                {"sTitle": "NAPT后的IPv4地址", "width":"30%"}
             ]
         });
     }

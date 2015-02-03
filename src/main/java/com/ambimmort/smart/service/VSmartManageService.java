@@ -48,6 +48,7 @@ public class VSmartManageService {
     }
     
     public boolean delvSmart(String ip, String port, String vSmartName) {
+        deleteConfigLocal(ip, port, vSmartName);
         JSONObject data = new JSONObject();
         data.put("vSmart6_name", vSmartName);
         
@@ -63,6 +64,7 @@ public class VSmartManageService {
     }
     
     public boolean setvSmartConfig(String ip, String port, String config) {
+        saveConfigLocal(ip, port, config);
         StringBuilder sb = new StringBuilder();
         sb.append("http://").append(ip).append(':').append(port).append(SET_VSMART_POLICY);
         try {
@@ -248,5 +250,24 @@ public class VSmartManageService {
             Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rtArr;
+    }
+    
+    public JSONObject getvSmartConfig(String ip, String port, String vSmartName) {
+        String fileName = ip + "." + port + "." + vSmartName + ".cfg";
+        String conf = ConfigFileManager.getInstance().getConfig(fileName);
+        if (conf != null) {
+            return JSONObject.fromObject(conf);
+        }
+        return null;
+    }
+
+    private void saveConfigLocal(String ip, String port, String config) {
+        String vSmartName = ip + "." + port + "." + JSONObject.fromObject(config).getString("vSmart6_name") + ".cfg";
+        ConfigFileManager.getInstance().writeConfig(vSmartName, config);
+    }
+
+    private void deleteConfigLocal(String ip, String port, String vSmartName) {
+        String fileName = ip + "." + port + "." + vSmartName + ".cfg";
+        ConfigFileManager.getInstance().deleteConfigFile(fileName);
     }
 }
