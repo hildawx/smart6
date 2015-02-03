@@ -228,17 +228,20 @@ public class VSmartManageService {
             String resp = RestClient.getInstance().get(sb.toString());
             JSONArray arr = JSONArray.fromObject(resp);
             if (arr.size() > 0) {
-                String[] vSmartList = arr.getJSONObject(0).getString("all_vsmart6").split("-");
-                for (int i = 0; i < vSmartList.length; i++) {
-                    String vSmart = vSmartList[i];
-                    sb = new StringBuilder();
-                    sb.append("http://").append(ip).append(':').append(port).append(VSMART_GROUP_STATE).append('&').append(vSmart);
-                    resp = RestClient.getInstance().get(sb.toString());
-                    String stat = JSONArray.fromObject(resp).getJSONObject(0).getString("state");
-                    JSONArray item = new JSONArray();
-                    item.add(vSmart);
-                    item.add(stat);
-                    rtArr.add(item);
+                String all_vsmart6 = arr.getJSONObject(0).getString("all_vsmart6");
+                if (all_vsmart6 != null && !"".equals(all_vsmart6)) {
+                    String[] vSmartList = all_vsmart6.split("-");
+                    for (int i = 0; i < vSmartList.length; i++) {
+                        String vSmart = vSmartList[i];
+                        sb = new StringBuilder();
+                        sb.append("http://").append(ip).append(':').append(port).append(VSMART_GROUP_STATE).append('&').append(vSmart);
+                        resp = RestClient.getInstance().get(sb.toString());
+                        String stat = JSONArray.fromObject(resp).getJSONObject(0).getString("state");
+                        JSONArray item = new JSONArray();
+                        item.add(vSmart);
+                        item.add(stat);
+                        rtArr.add(item);
+                    }
                 }
             }
         } catch (IOException ex) {
