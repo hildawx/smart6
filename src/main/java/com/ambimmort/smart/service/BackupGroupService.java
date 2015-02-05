@@ -31,7 +31,7 @@ public class BackupGroupService {
             JSONArray resArr = JSONArray.fromObject(resp);
             if (resArr.size() > 0) {
                 String groupStr = resArr.getJSONObject(0).getString("groups");
-                if (groupStr != null && groupStr.equals("")) {
+                if (groupStr != null && !groupStr.equals("")) {
                     String[] groups = groupStr.split("-");
                     for (int i=0; i<groups.length; i++) {
                         JSONArray item = new JSONArray();

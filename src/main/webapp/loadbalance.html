@@ -25,6 +25,7 @@
         <style>
             .table tbody tr td .btn {margin: 0;}
             .panel .panel-heading { border-bottom: 1px solid #8A7DBE;}
+            select.input-sm{line-height: 15px;}
         </style>
     </head>
 
@@ -106,7 +107,7 @@
                                         <tr>
                                             <td colspan="3" class="">
                                                 <b>负载方式:</b>
-                                                <select id="rule" class="form-control input-sm" style="width:100px; display: inline;">
+                                                <select id="rule" class="" style="width:100px; display: inline; line-height: 24px;">
                                                     <option value="round_robin">轮询</option>
                                                     <option value="flow_threshold">实时流量</option>
                                                 </select>
@@ -117,9 +118,9 @@
                                 <table class="table table-condensed table-hover">
                                     <thead>
                                         <tr>
-                                            <th>nexthop</th>
-                                            <th>macip</th>
-                                            <th>流量阈值</th>
+                                            <th style="color:#444;">nexthop</th>
+                                            <th style="color:#444;">macip</th>
+                                            <th style="color:#444;">流量阈值</th>
                                         </tr>
                                     </thead>
                                     <tbody id="real6List">
@@ -248,6 +249,7 @@
                         }else{
                             alert("获取数据失败！");
                         }
+                        $("#rule").trigger('change');
                     },
                     error:function(e){
                         alert(e.message);

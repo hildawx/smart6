@@ -899,6 +899,26 @@
         $("#toClusterModal").modal("show");
     }
     
+    // 将vSmart6从备份组移除
+    function delFromCluster(name){
+        if(confirm("确定从备份组移除？")){
+            var smart6 = $("#deviceSelect option:selected").val();
+            $.ajax({
+               url:"smart6/delCluster" ,
+               type:"POST",
+               data:{smart6:smart6,vSmart6Name:name},
+               success:function(data){
+                   if(data == "true"){
+                       alert("移除成功！");
+                       vSmart6List($("#deviceSelect option:selected").val());
+                   }else{
+                       alert("移除失败");
+                   }
+               }
+            });
+        }
+    }
+    
     // 添加到备份组 提交
     function toClusterSubmit(){
         var vSmart6Name = $("#hvSmart6Name2").val();
@@ -1008,7 +1028,13 @@
                     "width":"100px",
                     "render": function(data,type,full,meta){
                         var name = full[0];
-                        return '<a href="javascript:;" title="下发配置" onclick=config("' + name + '")><i class="fa fa-mail-forward"></i> </a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="加入到备份组" onclick=addToCluster("' + name + '")><i class="fa fa-plus"></i> </a> &nbsp;&nbsp;&nbsp; <a href="javascript:;" title="删除" onclick=deletevSmart6("' + name + '")><i class="fa fa-trash-o"></i> </a>';
+                        var state = full[1];
+                        if(state == "无" || state == ""){
+                            return '<a href="javascript:;" title="下发配置" onclick=config("' + name + '")><i class="fa fa-mail-forward"></i> </a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="加入到备份组" onclick=addToCluster("' + name + '")><i class="fa fa-plus"></i> </a> &nbsp;&nbsp;&nbsp; <a href="javascript:;" title="删除" onclick=deletevSmart6("' + name + '")><i class="fa fa-trash-o"></i> </a>';
+                        }else{
+                            return '<a href="javascript:;" title="下发配置" onclick=config("' + name + '")><i class="fa fa-mail-forward"></i> </a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="从备份组移除" onclick=delFromCluster("' + name + '")><i class="fa fa-minus"></i> </a> &nbsp;&nbsp;&nbsp; <a href="javascript:;" title="删除" onclick=deletevSmart6("' + name + '")><i class="fa fa-trash-o"></i> </a>';
+                        }
+                        
                     }
                 }
             ],
