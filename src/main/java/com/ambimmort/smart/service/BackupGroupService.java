@@ -30,11 +30,14 @@ public class BackupGroupService {
             String resp = RestClient.getInstance().get(sb.toString());
             JSONArray resArr = JSONArray.fromObject(resp);
             if (resArr.size() > 0) {
-                String[] groups = resArr.getJSONObject(0).getString("groups").split("-");
-                for (int i=0; i<groups.length; i++) {
-                    JSONArray item = new JSONArray();
-                    item.add(groups[i]);
-                    arr.add(item);
+                String groupStr = resArr.getJSONObject(0).getString("groups");
+                if (groupStr != null && groupStr.equals("")) {
+                    String[] groups = groupStr.split("-");
+                    for (int i=0; i<groups.length; i++) {
+                        JSONArray item = new JSONArray();
+                        item.add(groups[i]);
+                        arr.add(item);
+                    }
                 }
             }
         } catch (IOException ex) {
@@ -59,10 +62,9 @@ public class BackupGroupService {
         }
     }
     
-    public boolean removevSmartFromGroup(String ip, String port, String vSmartName, String groupName) {
+    public boolean removevSmartFromGroup(String ip, String port, String vSmartName) {
         JSONObject data = new JSONObject();
         data.put("vSmart6_name", vSmartName);
-        data.put("cluster_name", groupName);
         
         StringBuilder sb = new StringBuilder();
         sb.append("http://").append(ip).append(':').append(port).append(REMOVE_VSMART_INTO_GROUP);

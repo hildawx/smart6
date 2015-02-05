@@ -36,10 +36,9 @@ public class BackupGroupRemovevSmart extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         String[] host = request.getParameter("smart6").split(",");
-        String clusterName = request.getParameter("clusterName");
         String vSmartName = request.getParameter("vSmart6Name");
         try {
-            boolean flag = new BackupGroupService().removevSmartFromGroup(host[0], host[1], vSmartName, clusterName);
+            boolean flag = new BackupGroupService().removevSmartFromGroup(host[0], host[1], vSmartName);
             out.print(flag);
         } finally {            
             out.close();

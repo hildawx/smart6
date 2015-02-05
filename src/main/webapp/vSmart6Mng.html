@@ -604,7 +604,9 @@
                type:"GET",
                dataType:"json",
                success:function(data){
-                   $("#vSmartConfigModal #cluster_name").val(data["cluster_name"]);
+                   if (data["cluster_name"]){
+                       $("#vSmartConfigModal #cluster_name").val(data["cluster_name"]);
+                   }
                    $("#vSmartConfigModal #pid").val(data["pid"]);
                    $("#vSmartConfigModal #v6lanip").val(data["v6lanip"]);
                    $("#vSmartConfigModal #v6lan_mac").val(data["v6lan_mac"]);

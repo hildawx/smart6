@@ -181,7 +181,9 @@ public class VSmartManageService {
         try {
             String resp = RestClient.getInstance().get(sb.toString());
             JSONObject o = JSONArray.fromObject(resp).getJSONObject(0);
-            rs.put("cluster_name", o.getString("cluster_name"));
+            if (o.has("cluster_name")) {
+                rs.put("cluster_name", o.getString("cluster_name"));
+            }
             rs.put("pid", o.getString("pid"));
             rs.put("v6lanip", o.getString("v6lanip"));
             rs.put("v6lan_mac", o.getString("v6lan-mac"));
