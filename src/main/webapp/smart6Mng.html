@@ -104,11 +104,11 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <strong>CPU</strong><br>
-                                    <span class="fs-16" id="cpu">49%</span>
+                                    <span class="fs-16" id="cpu"></span>
                                 </div>
                                 <div class="col-sm-6">
                                     <strong>内存</strong><br>
-                                    <span class="fs-16" id="memory">49%</span>
+                                    <span class="fs-16" id="memory"></span>
                                 </div>
                                 <!--<div class="col-sm-4">
                                     <strong>接口流量</strong><br>
@@ -304,6 +304,7 @@
     }
 
     $(function() {
+        registEventListener();
         // jquery.dataTables.js
         $('#basicTable').dataTable({
             "bSort": false,
