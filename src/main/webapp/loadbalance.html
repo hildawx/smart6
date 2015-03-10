@@ -365,7 +365,7 @@
             $("#rule").change(function(){
                var rule = $("#rule option:selected").val();
                var $obj = $("#real6List tr .thset").find("input, select");
-               if(rule == "round_robin"){
+               if(rule != "flow_threshold"){
                    $obj.prop("disabled","true");
                }else{
                    $obj.removeAttr("disabled");
