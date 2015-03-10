@@ -183,14 +183,14 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>起始端口</label>
-                                        <input id="Every_Start_Port" type="text" class="form-control" placeholder="">
+                                        <label>源地址引流前缀</label>
+                                        <input id="prefix" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>每端口单元单口数</label>
-                                        <input id="Port_Len" type="text" class="form-control" placeholder="">
+                                        <label>源地址引流长度</label>
+                                        <input id="prefix_len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -203,8 +203,8 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>DNS代理</label>
-                                        <input id="dns_proxy_mode" type="text" class="form-control" placeholder="">
+                                        <label>端口区间</label>
+                                        <input id="Port_Len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -318,14 +318,6 @@
                     <div class="modal-body">
                         <!-- <p class="small-text">Create a new app using this form, make sure you fill them all</p> -->
                         <form role="form">
-                            <!--<div class="row hide">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-group-default">
-                                        <label>cluster_name</label>
-                                        <input id="cluster_name" type="text" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
@@ -427,28 +419,8 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group form-group-default">
-                                        <label>起始端口</label>
-                                        <input id="Every_Start_Port" type="text" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-group-default">
-                                        <label>每端口单元单口数</label>
-                                        <input id="Port_Len" type="text" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-group-default">
-                                        <label>端口单元数</label>
-                                        <input id="Port_Unit" type="text" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-group-default">
-                                        <label>DNS代理</label>
-                                        <input id="dns_proxy_mode" type="text" class="form-control" placeholder="">
+                                        <label>源地址引流规则</label>
+                                        <input id="prefix_len" type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -586,10 +558,10 @@
                         $("#configModal #prefB_feature").val(config.prefB_feature);
                         $("#configModal #prefA_nat_start").val(config.prefA_nat_start);
                         $("#configModal #prefA_nat_end").val(config.prefA_nat_end);
-                        $("#configModal #Every_Start_Port").val(config.Every_Start_Port);
+                        $("#configModal #prefix").val(config.prefix);
                         $("#configModal #Port_Len").val(config.Port_Len);
                         $("#configModal #Baddr_pool").val(config.Baddr_pool);
-                        $("#configModal #dns_proxy_mode").val(config.dns_proxy_mode);
+                        $("#configModal #prefix_len").val(config.prefix_len);
                     }
                 }
             });
@@ -620,10 +592,7 @@
                    $("#vSmartConfigModal #A_addrpool").val(data["Aaddrpool"]);
                    $("#vSmartConfigModal #prefB_feature_prefB_Len").val(data["prefB_feature_prefB_Len"]);
                    $("#vSmartConfigModal #B_addrpool").val(data["Baddrpool"]);
-                   $("#vSmartConfigModal #Every_Start_Port").val(data["Every_Start_Port"]);
-                   $("#vSmartConfigModal #Port_Len").val(data["Port_Len"]);
-                   $("#vSmartConfigModal #Port_Unit").val(data["Port_Unit"]);
-                   $("#vSmartConfigModal #dns_proxy_mode").val(data["dns_proxy_mode"]);
+                   $("#vSmartConfigModal #prefix_len").val(data["prefix_len"]);
                },
                errror:function(e){
                    alert(e);
@@ -869,10 +838,10 @@
         config.prefB_feature = $("#configModal #prefB_feature").val();
         config.prefA_nat_start = $("#configModal #prefA_nat_start").val();
         config.prefA_nat_end = $("#configModal #prefA_nat_end").val();
-        config.Every_Start_Port = $("#configModal #Every_Start_Port").val();
+        config.prefix = $("#configModal #prefix").val();
         config.Port_Len = $("#configModal #Port_Len").val();
         config.Baddr_pool = $("#configModal #Baddr_pool").val();
-        config.dns_proxy_mode = $("#configModal #dns_proxy_mode").val();
+        config.prefix_len = $("#configModal #prefix_len").val();
             $.ajax({
                url :"smart6/vsmart6Config",
                data:{smart6:smart6,config:JSON.stringify(config)},

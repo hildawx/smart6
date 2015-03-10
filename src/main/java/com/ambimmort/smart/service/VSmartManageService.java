@@ -21,7 +21,8 @@ public class VSmartManageService {
     public static String CREATE_VSMART = "/gn/vsmart6/create/json";
     public static String DELETE_VSMART = "/gn/vsmart6/delete/json";
     public static String ALL_VSMART_LIST = "/gn/vsmart6/query/json";
-    public static String SET_VSMART_POLICY = "/gn/vsmart6/master/policy/json";
+    public static String SET_VSMART_MASTER_POLICY = "/gn/vsmart6/master/policy/json";
+    public static String SET_VSMART_SLAVE_POLICY = "/gn/vsmart6/slave/policy/json";
     public static String VSMART_ICMP_SEARCH = "/gn/vsmart6/icmp/flowtb/query/json";
     public static String VSMART_TCP_SEARCH = "/gn/vsmart6/tcp/flowtb/query/json";
     public static String VSMART_UDP_SEARCH = "/gn/vsmart6/udp/flowtb/query/json";
@@ -65,15 +66,38 @@ public class VSmartManageService {
     
     public boolean setvSmartConfig(String ip, String port, String config) {
         saveConfigLocal(ip, port, config);
+        
+        JSONObject confObj = JSONObject.fromObject(config);
         StringBuilder sb = new StringBuilder();
-        sb.append("http://").append(ip).append(':').append(port).append(SET_VSMART_POLICY);
+        sb.append("http://").append(ip).append(':').append(port).append(VSMART_GROUP_STATE).append('&').append(confObj.getString("vSmart6_name"));
         try {
-            RestClient.getInstance().post(sb.toString(), config);
+            String resp = RestClient.getInstance().get(sb.toString());
+            String stat = JSONArray.fromObject(resp).getJSONObject(0).getString("state");
+            if ("slave".equals(stat)) {
+                JSONObject slaveConfObj = new JSONObject();
+                slaveConfObj.put("vSmart6_name", confObj.getString("vSmart6_name"));
+                slaveConfObj.put("v6lanip", confObj.getString("v6lanip"));
+                slaveConfObj.put("Aaddr_pool", confObj.getString("prefA_nat_start") + "-" + confObj.getString("prefA_nat_end"));
+                slaveConfObj.put("Baddr_pool", confObj.getString("Baddr_pool"));
+
+                sb = new StringBuilder();
+                sb.append("http://").append(ip).append(':').append(port).append(SET_VSMART_SLAVE_POLICY);
+                RestClient.getInstance().post(sb.toString(), slaveConfObj.toString());
+            } else {
+                confObj.put("Aaddr_pool", confObj.getString("prefA_nat_start") + "-" + confObj.getString("prefA_nat_end"));
+                confObj.remove("prefA_nat_start");
+                confObj.remove("prefA_nat_end");
+
+                sb = new StringBuilder();
+                sb.append("http://").append(ip).append(':').append(port).append(SET_VSMART_MASTER_POLICY);
+                RestClient.getInstance().post(sb.toString(), config);
+            }
             return true;
         } catch (IOException ex) {
             Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        
     }
 
     public JSONArray searchICMP(String ip, String port, String vSmartName) {
@@ -193,18 +217,36 @@ public class VSmartManageService {
             rs.put("v4wan_mac", o.getString("v4wan-mac"));
             rs.put("v4gateway", o.getString("v4gateway"));
             rs.put("v4gateway_mac", o.getString("v4gateway-mac"));
-            rs.put("prefA_feature_prefA_Len", o.getJSONArray("A").getJSONObject(0).getString("prefA_feature[0]/prefA_Len[0]"));
+            rs.put("prefA_feature_prefA_Len", buildPrefFeatureAndLen(o.getJSONArray("A")));
             rs.put("Aaddrpool", o.getString("Aaddrpool"));
-            rs.put("prefB_feature_prefB_Len", o.getJSONArray("B").getJSONObject(0).getString("prefB_feature[0]/prefB_Len[0]"));
+            rs.put("prefB_feature_prefB_Len", buildPrefFeatureAndLen(o.getJSONArray("B")));
             rs.put("Baddrpool", o.getString("Baddrpool"));
-            rs.put("Every_Start_Port", o.getString("Every_Start_Port"));
-            rs.put("Port_Len", o.getString("Port_Len"));
-            rs.put("Port_Unit", o.getString("Port_Unit"));
-            rs.put("dns_proxy_mode", o.getString("dns_proxy_mode"));
+            rs.put("prefix_len", o.getString("prefix/len"));
         } catch (IOException ex) {
             Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
+    }
+    
+    private String buildPrefFeatureAndLen(JSONArray feature) {
+        if (feature == null || feature.size() == 0) {
+            return "";
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        Iterator it = feature.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            JSONObject o = (JSONObject) it.next();
+            for (Object key : o.keySet()) {
+                if (i != 0) {
+                    sb.append(';');
+                }
+                sb.append(o.get(key));
+                i++;
+            }
+        }
+        return sb.toString();
     }
 
     public JSONObject getSmartStatisticInfo(String ip, String port) {
