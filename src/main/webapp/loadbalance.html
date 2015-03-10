@@ -115,7 +115,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <table class="table table-condensed table-hover">
+                                <table id="flow_div" class="table table-condensed table-hover">
                                     <thead>
                                         <tr>
                                             <th style="color:#444;">nexthop</th>
@@ -126,6 +126,63 @@
                                     <tbody id="real6List">
                                     </tbody>
                                 </table>
+                                <div id="ip_div" class="row">
+                                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                                        <div class="panel-heading">
+                                            <div class="panel-title"> ip范围配置下发</div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <form role="form">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
+
+                                                        <div class="form-group form-group-default">
+                                                            <label>nexthop1</label>
+                                                            <input id="range-nexthop1" type="text" class="form-control" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
+                                                        <div class="form-group form-group-default">
+                                                            <label>nexthop2</label>
+                                                            <input id="range-nexthop2" type="text" class="form-control" placeholder="">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                                        <div class="panel-heading">
+                                            <div class="panel-title"> ip列表配置下发</div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <form role="form">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
+
+                                                        <div class="form-group form-group-default ">
+                                                            <label>nexthop1</label>
+                                                            <span class="help-block">多个URL地址以换行分隔。</span>
+                                                            <textarea id="list-nexthop1" required="" class="form-control" style="height: 80px;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
+                                                        <div class="form-group form-group-default ">
+                                                            <label>nexthop2</label>
+                                                            <span class="help-block">多个URL地址以换行分隔。</span>
+                                                            <textarea id="list-nexthop2" required="" class="form-control" style="height: 80px;"></textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -155,6 +212,17 @@
         <script type="text/javascript" src="pages/js/common.js"></script>
 
         <script>
+            
+        function joinArray(arr) {
+            var rs = "";
+            _.each(arr,function(item, index){
+                var value = $.trim(item);
+                if (value != '') {
+                    rs += "," + value;
+                }
+            });
+            return rs.length ==0 ? rs : rs.substring(1);
+        }
 
         // 创建设备提交
         function createDevice(){
@@ -284,13 +352,15 @@
             var flag = true;
             var param = $("#settingModal").data("data");
             var rule = $("#rule option:selected").val();
-            param.scheduling_algorithm = rule;
+            
             if(rule == "round_robin"){
-            }else{
+                
+            }else if(rule == "flow_threshold"){
+                param.scheduling_algorithm = rule;
                 var $thsets = $("#real6List tr .thset");
                 var tmp = {};
                 $.each($thsets,function(i,e){
-                    var name = $(e).parent("tr").attr("id");
+                   var name = $(e).parent("tr").attr("id");
                    var flow = $(e).find("input").val();
                    if(flow == ""){
                        flag = false;
@@ -302,29 +372,65 @@
                    tmp[name] = flowThreshold;
                 });
                 param.flow = JSON.stringify(tmp);
-
-            }
-
-            // 实时流量阈值下发
-            if(flag){
-                $.ajax({
-                    url:"smart6/setAlgorithm",
-                    data:param,
-                    type:"POST",
-                    dataType:"json",
-                    success:function(data){
-                        if(data){
-                            alert("负载均衡规则配置成功！");
-                        }else{
-                            alert("负载均衡规则配置失败！");
+                
+                if(flag){
+                    // 实时流量阈值下发
+                    $.ajax({
+                        url:"smart6/setAlgorithm",
+                        data:param,
+                        type:"POST",
+                        dataType:"json",
+                        success:function(data){
+                            if(data){
+                                alert("负载均衡规则配置成功！");
+                            }else{
+                                alert("负载均衡规则配置失败！");
+                            }
+                        },
+                        error:function(e){
+                            console.log(e);
                         }
-                    },
-                    error:function(e){
-                        console.log(e);
-                    }
-                });
-            }
+                    });
+                }
 
+            }else{
+                var ip = param.ip + ":" + param.port;
+                
+                var range_nexthop1 = $("#range-nexthop1").val();
+                var range_nexthop2 = $("#range-nexthop2").val();
+                $.ajax({
+                   url:"smart6/ipRange" ,
+                   data:{ip:ip,nexthop1:range_nexthop1,nexthop2:range_nexthop2},
+                   dataType:"json",
+                   type:"POST",
+                   success:function(data){
+                       if(data){
+                           alert("下发成功！");
+                       }else{
+                           alert("下发失败！");
+                       }
+                   }
+                });
+                
+                var list_nexthop1_arr = $("#list-nexthop1").val().trim().split("\n");
+                var list_nexthop2_arr = $("#list-nexthop2").val().trim().split("\n");
+                var list_nexthop1 = joinArray(list_nexthop1_arr);
+                var list_nexthop2 = joinArray(list_nexthop2_arr);
+                $.ajax({
+                   url:"smart6/ipList" ,
+                   data:{ip:ip, nexthop1:list_nexthop1,nexthop2:list_nexthop2},
+                   dataType:"json",
+                   type:"POST",
+                   success:function(data){
+                       if(data){
+                           alert("下发成功！");
+                       }else{
+                           alert("下发失败！");
+                       }
+                   }
+                });
+                
+            }
         }
 
         var fTable;
@@ -367,10 +473,15 @@
                var $obj = $("#real6List tr .thset").find("input, select");
                if(rule != "flow_threshold"){
                    $obj.prop("disabled","true");
+                   $("#ip_div").show();
+                   $("#flow_div").hide();
                }else{
+                   $("#flow_div").show();
+                   $("#ip_div").hide();
                    $obj.removeAttr("disabled");
                }
             });
+            
         });
         </script>
     </body>
