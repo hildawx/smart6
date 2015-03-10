@@ -352,11 +352,10 @@
             var flag = true;
             var param = $("#settingModal").data("data");
             var rule = $("#rule option:selected").val();
-            
+            param.scheduling_algorithm = rule;
             if(rule == "round_robin"){
                 
             }else if(rule == "flow_threshold"){
-                param.scheduling_algorithm = rule;
                 var $thsets = $("#real6List tr .thset");
                 var tmp = {};
                 $.each($thsets,function(i,e){
@@ -372,65 +371,52 @@
                    tmp[name] = flowThreshold;
                 });
                 param.flow = JSON.stringify(tmp);
-                
-                if(flag){
-                    // 实时流量阈值下发
-                    $.ajax({
-                        url:"smart6/setAlgorithm",
-                        data:param,
-                        type:"POST",
-                        dataType:"json",
-                        success:function(data){
-                            if(data){
-                                alert("负载均衡规则配置成功！");
-                            }else{
-                                alert("负载均衡规则配置失败！");
-                            }
-                        },
-                        error:function(e){
-                            console.log(e);
-                        }
-                    });
-                }
 
             }else{
-                var ip = param.ip + ":" + param.port;
-                
                 var range_nexthop1 = $("#range-nexthop1").val();
                 var range_nexthop2 = $("#range-nexthop2").val();
-                $.ajax({
-                   url:"smart6/ipRange" ,
-                   data:{ip:ip,nexthop1:range_nexthop1,nexthop2:range_nexthop2},
-                   dataType:"json",
-                   type:"POST",
-                   success:function(data){
-                       if(data){
-                           alert("下发成功！");
-                       }else{
-                           alert("下发失败！");
-                       }
-                   }
-                });
+                var range = {};
+                range.nexthop1 = range_nexthop1;
+                range.nexthop2 = range_nexthop2;
                 
                 var list_nexthop1_arr = $("#list-nexthop1").val().trim().split("\n");
                 var list_nexthop2_arr = $("#list-nexthop2").val().trim().split("\n");
                 var list_nexthop1 = joinArray(list_nexthop1_arr);
                 var list_nexthop2 = joinArray(list_nexthop2_arr);
-                $.ajax({
-                   url:"smart6/ipList" ,
-                   data:{ip:ip, nexthop1:list_nexthop1,nexthop2:list_nexthop2},
-                   dataType:"json",
-                   type:"POST",
-                   success:function(data){
-                       if(data){
-                           alert("下发成功！");
-                       }else{
-                           alert("下发失败！");
-                       }
-                   }
-                });
+                var list = {};
+                list.nexthop1 = list_nexthop1;
+                list.nexthop2 = list_nexthop2;
+                
+                if(range_nexthop1 == "" || range_nexthop2 == "" || list_nexthop1 == "" || list_nexthop2 == ""){
+                    flag = false;
+                    alert("输入ip地址不能为空！");
+                    return;
+                }
+                param.range = JSON.stringify(range);
+                param.list = JSON.stringify(list);
                 
             }
+            
+            if(flag){
+                // 实时流量阈值下发
+                $.ajax({
+                    url:"smart6/setAlgorithm",
+                    data:param,
+                    type:"POST",
+                    dataType:"json",
+                    success:function(data){
+                        if(data){
+                            alert("负载均衡规则配置成功！");
+                        }else{
+                            alert("负载均衡规则配置失败！");
+                        }
+                    },
+                    error:function(e){
+                        console.log(e);
+                    }
+                });
+            }
+            
         }
 
         var fTable;
