@@ -21,6 +21,8 @@ public class EqualizerConfigService {
     public static final String REAL_ADDRESSS_URL = "/gnslb/nexthop/get/json";
     public static final String SCHEDULING_ALGORITHM = "/gnslb/scheduling/algorithm/json";
     public static final String FLOW_SPEED = "/gnslb/nexthop/flow/speed/json";
+    public static final String IP_RANGE_CONFIG = "/gnslb/nexthop/iprange/json";
+    public static final String IP_LIST_CONFIG = "/gnslb/nexthop/iplist/json";
 
     public JSONArray getRealAddress(String ip, String port) {
         JSONArray arr = new JSONArray();
@@ -71,6 +73,30 @@ public class EqualizerConfigService {
             Logger.getLogger(EqualizerConfigService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public boolean sendIPRangeConfig(String ip, String port, String ipRange) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(":").append(port).append(IP_RANGE_CONFIG);
+        try {
+            RestClient.getInstance().post(sb.toString(), ipRange);
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(EqualizerConfigService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean sendIPListConfig(String ip, String port, String ipList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(":").append(port).append(IP_LIST_CONFIG);
+        try {
+            RestClient.getInstance().post(sb.toString(), ipList);
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(EqualizerConfigService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
 }

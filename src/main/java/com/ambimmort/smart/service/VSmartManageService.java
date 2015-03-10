@@ -30,6 +30,7 @@ public class VSmartManageService {
     public static String VSMART_STATUS = "/gn/vsmart6/state/query/json";
     public static String QUERY_VSMART_CONFIG = "/gn/vsmart6/conf/query/json";
     public static String VSMART_GROUP_STATE = "/gn/vsmart6/state/query/json";
+    public static String VSMART_PREFIX = "/gn/vsmart6/prefix/json";
     
     public static String SMART_RUNNING_INFO = "/gn/smart6/cpuandmem/json";
 
@@ -64,10 +65,26 @@ public class VSmartManageService {
         }
     }
     
+    public void setSrcDrainageRegular(String ip, String port, String config){
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://").append(ip).append(':').append(port).append(VSMART_PREFIX);
+        try {
+            RestClient.getInstance().post(sb.toString(), config);
+        } catch (IOException ex) {
+            Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public boolean setvSmartConfig(String ip, String port, String config) {
         saveConfigLocal(ip, port, config);
         
         JSONObject confObj = JSONObject.fromObject(config);
+        JSONObject prefixData = new JSONObject();
+        prefixData.put("vSmart6_name", confObj.get("vSmart6_name"));
+        prefixData.put("prefix_len", confObj.remove("prefix_len"));
+        prefixData.put("prefix", confObj.remove("prefix"));
+        setSrcDrainageRegular(ip, port, prefixData.toString());
+        
         StringBuilder sb = new StringBuilder();
         sb.append("http://").append(ip).append(':').append(port).append(VSMART_GROUP_STATE).append('&').append(confObj.getString("vSmart6_name"));
         try {
@@ -90,8 +107,9 @@ public class VSmartManageService {
 
                 sb = new StringBuilder();
                 sb.append("http://").append(ip).append(':').append(port).append(SET_VSMART_MASTER_POLICY);
-                RestClient.getInstance().post(sb.toString(), config);
+                RestClient.getInstance().post(sb.toString(), confObj.toString());
             }
+            
             return true;
         } catch (IOException ex) {
             Logger.getLogger(VSmartManageService.class.getName()).log(Level.SEVERE, null, ex);
