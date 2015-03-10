@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title></title>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta charset="utf-8">
+        <title>iprange</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta content="" name="description">
+        <meta content="" name="author">
+        <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/jquery-datatable/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/jquery-datatable/extensions/FixedColumns/css/dataTables.fixedColumns.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+        <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
+        <style>
+            .table tbody tr td .btn {margin: 0;}
+            .panel .panel-heading { border-bottom: 1px solid #8A7DBE;}
+            .form-group label:not(.error) { font-size: 13px;}
+            .panel-heading{margin-bottom: 10px;}
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container-fluid padding-25 sm-padding-10">
+            
+            <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                <div class="panel-heading">
+                    <div class="panel-title"> 负载均衡器</div>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xlg-6">
+
+                                <div class="form-group form-group-default">
+                                    <select id="balance" class="form-control">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                <div class="panel-heading">
+                    <div class="panel-title"> ip范围配置下发</div>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xlg-6">
+
+                                <div class="form-group form-group-default">
+                                    <label>nexthop1</label>
+                                    <input id="range-nexthop1" type="text" class="form-control" placeholder="">
+                                </div>
+                                
+                                <div class="form-group form-group-default">
+                                    <label>nexthop2</label>
+                                    <input id="range-nexthop2" type="text" class="form-control" placeholder="">
+                                </div>
+                                
+                                <button type="button" id="range-btn" class="btn btn-primary">确定</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                <div class="panel-heading">
+                    <div class="panel-title"> ip列表配置下发</div>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xlg-6">
+
+                                <div class="form-group form-group-default ">
+                                    <label>nexthop1</label>
+                                    <span class="help-block">多个URL地址以换行分隔。</span>
+                                    <textarea id="list-nexthop1" required="" class="form-control" style="height: 80px;"></textarea>
+                                </div>
+
+                                <div class="form-group form-group-default ">
+                                    <label>nexthop2</label>
+                                    <span class="help-block">多个URL地址以换行分隔。</span>
+                                    <textarea id="list-nexthop2" required="" class="form-control" style="height: 80px;"></textarea>
+                                </div>
+                                
+                                <button type="button" id="list-btn" class="btn btn-primary">确定</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+        <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/datatables-responsive/js/lodash.min.js"></script>
+        <script type="text/javascript" src="pages/js/common.js"></script>
+
+        <script>
+
+            $(function() {
+                $.ajax({
+                    url:"smart6/EqualizerList",
+                    type:"GET",
+                    success:function(data){
+                        var dataSrc = data.aaData;
+                        var option = "";
+                        $.each(dataSrc,function(i,e){
+                           var option += "<option value='"+ e[0] +":"+ e[1] +"'>"+ e[0] +"</option>" ;
+                        });
+                        $("#balance").append(option);
+                    }
+                });
+
+                $("#range-btn").click(function(){
+                   var range_nexthop1 = $("#range-nexthop1").val();
+                   var range_nexthop2 = $("#range-nexthop2").val();
+                   $.ajax({
+                      url:"smart6/ipRange" ,
+                      data:{nexthop1:range_nexthop1,nexthop2:range_nexthop2},
+                      dataType:"json",
+                      type:"GET",
+                      success:function(data){
+                          if(data == "true"){
+                              alert("下发成功！");
+                          }else{
+                              alert("下发失败！");
+                          }
+                      }
+                   });
+                });
+                
+                $("#list-btn").click(function(){
+                   var list_nexthop1_arr = $("#list-nexthop1").val().trim().split("\n");
+                   var list_nexthop2_arr = $("#list-nexthop2").val().trim().split("\n");
+                   
+                   var list_nexthop1_len = list_nexthop1_arr.length;
+                   var list_nexthop1 = "";
+                    $.each(list_nexthop1_arr,function(i,e){
+                        if((i+1) == list_nexthop1_len){
+                            if(e != " "){
+                                list_nexthop1 += "," + e;
+                            }else{
+                                list_nexthop1 += e;
+                            }
+                        }else if(i == 0){
+                            list_nexthop1 += e;
+                        }else{
+                            if(e != " "){
+                                list_nexthop1 += "," + e;
+                            }else{
+                                list_nexthop1 += e;
+                            }
+                        }
+                    });
+                   var list_nexthop2_len = list_nexthop2_arr.length;
+                   var list_nexthop2 = "";
+                    $.each(list_nexthop2_arr,function(i,e){
+                        if((i+1) == list_nexthop2_len){
+                            if(e != " "){
+                                list_nexthop2 += "," + e;
+                            }else{
+                                list_nexthop2 += e;
+                            }
+                        }else if(i == 0){
+                            list_nexthop2 += e;
+                        }else{
+                            if(e != " "){
+                                list_nexthop2 += "," + e;
+                            }else{
+                                list_nexthop2 += e;
+                            }
+                        }
+                    });
+                   $.ajax({
+                      url:"smart6/ipList" ,
+                      data:{nexthop1:list_nexthop1,nexthop2:list_nexthop2},
+                      dataType:"json",
+                      type:"GET",
+                      success:function(data){
+                          if(data == "true"){
+                              alert("下发成功！");
+                          }else{
+                              alert("下发失败！");
+                          }
+                      }
+                   });
+                });
+
+            });
+        </script>
+    </body>
+
+
+</html>
