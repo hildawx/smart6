@@ -139,32 +139,6 @@
                                             </tr>
                                         </thead>
                                         <tbody id="rangeip">
-                                            <tr id="nexthop1">
-                                                <td class="fs-12 col-lg-6">
-                                                    nexthop1
-                                                </td>
-                                                <td class="b-r b-dashed b-grey col-lg-3">
-                                                    <span class="hint-text small">
-                                                        00:0c:29:5e:2e:24
-                                                    </span>
-                                                </td>
-                                                <td colspan="2" class="col-lg-3 thset">
-                                                    <input type="text" id="range-nexthop1" style="display: inline;" class="form-control input-sm">
-                                                </td>
-                                            </tr>
-                                            <tr id="nexthop2">
-                                                <td class="fs-12 col-lg-6">
-                                                    nexthop2
-                                                </td>
-                                                <td class="b-r b-dashed b-grey col-lg-3">
-                                                    <span class="hint-text small">
-                                                        00:0c:29:48:1f:61
-                                                    </span>
-                                                </td>
-                                                <td colspan="2" class="col-lg-3 thset">
-                                                    <input type="text" id="range-nexthop2" style="display: inline;" class="form-control input-sm">
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                     <table class="table table-condensed table-hover" id="" style="display: none;">
@@ -178,33 +152,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody id="rangeip">
-                                            <tr id="nexthop1">
-                                                <td class="fs-12 col-lg-6">
-                                                    nexthop1
-                                                </td>
-                                                <td class="b-r b-dashed b-grey col-lg-3">
-                                                    <span class="hint-text small">
-                                                        00:0c:29:5e:2e:24
-                                                    </span>
-                                                </td>
-                                                <td colspan="2" class="col-lg-3 thset">
-                                                    <input type="text" id="lsit-nexthop1" style="display: inline;" class="form-control input-sm">
-                                                </td>
-                                            </tr>
-                                            <tr id="nexthop2">
-                                                <td class="fs-12 col-lg-6">
-                                                    nexthop2
-                                                </td>
-                                                <td class="b-r b-dashed b-grey col-lg-3">
-                                                    <span class="hint-text small">
-                                                        00:0c:29:48:1f:61
-                                                    </span>
-                                                </td>
-                                                <td colspan="2" class="col-lg-3 thset">
-                                                    <input type="text" id="list-nexthop2" style="display: inline;" class="form-control input-sm">
-                                                </td>
-                                            </tr>
+                                        <tbody id="listip">
                                         </tbody>
                                     </table>
                                 </div>
@@ -324,6 +272,8 @@
                                             success: function(data) {
                                                 if (data) {
                                                     var str = "";
+                                                    var range_str = "";
+                                                    var list_str = "";
                                                     $.each(data, function(i, e) {
                                                         str += "<tr id=\"" + e.name + "\">";
                                                         str += "<td class=\"fs-12 col-lg-6\">" + e.name + "</td>";
@@ -331,19 +281,45 @@
                                                         str += "<span class=\"hint-text small\">" + e.mac + "</span>";
                                                         str += "</td>";
                                                         str += "<td class=\"col-lg-3 thset\">";
-                                                        str += "<input type=\"text\" class=\"form-control input-sm flowthreshold\" style=\"width:50px; display: inline;\" disabled=\"\"/> ";
+                                                        str += "<input type=\"text\" class=\"form-control input-sm flowthreshold\" style=\"width:50px; display: inline;\" /> ";
                                                         str += "<select class=\"form-control input-sm unit\" style=\"width:80px; display: inline;\" disabled=\"\">";
                                                         str += "<option value=\"KB/s\">KB/s</option>";
                                                         str += "<option value=\"MB/s\">MB/s</option>";
                                                         str += "</select>";
                                                         str += "</td>";
                                                         str += "</tr>";
+                                                        
+                                                        range_str += '<tr id="'+e.name+'">'
+                                                        range_str += '     <td class="fs-12 col-lg-6">'+e.name+'</td>';
+                                                        range_str += '     <td class="b-r b-dashed b-grey col-lg-3">';
+                                                        range_str += '         <span class="hint-text small">';
+                                                        range_str += e.mac
+                                                        range_str += '         </span>';
+                                                        range_str += '     </td>';
+                                                        range_str += '     <td colspan="2" class="col-lg-3 thset">';
+                                                        range_str += '         <input type="text" id="range-'+e.name+'" style="display: inline;" class="form-control input-sm">';
+                                                        range_str += '     </td>';
+                                                        range_str += ' </tr>"';
+                                                        
+                                                        list_str += '<tr id="'+e.name+'">'
+                                                        list_str += '     <td class="fs-12 col-lg-6">'+e.name+'</td>';
+                                                        list_str += '     <td class="b-r b-dashed b-grey col-lg-3">';
+                                                        list_str += '         <span class="hint-text small">';
+                                                        list_str += e.mac
+                                                        list_str += '         </span>';
+                                                        list_str += '     </td>';
+                                                        list_str += '     <td colspan="2" class="col-lg-3 thset">';
+                                                        list_str += '         <input type="text" id="list-'+e.name+'" style="display: inline;" class="form-control input-sm">';
+                                                        list_str += '     </td>';
+                                                        list_str += ' </tr>"';
                                                     });
                                                     $("#real6List").html("").append(str);
+                                                    $("#rangeip").html("").append(range_str);
+                                                    $("#listip").html("").append(list_str);
                                                 } else {
                                                     alert("获取数据失败！");
                                                 }
-                                                $("#rule").trigger('change');
+//                                                $("#rule").trigger('change');
                                             },
                                             error: function(e) {
                                                 alert(e.message);
@@ -483,13 +459,13 @@
                                         var rule = $("#rule option:selected").val();
                                         var $obj = $("#real6List tr .thset").find("input, select");
                                         if (rule != "flow_threshold") {
-                                            $obj.prop("disabled", "true");
+//                                            $obj.prop("disabled", "true");
                                             $("#ip_div").show();
                                             $("#flow_div").hide();
                                         } else {
                                             $("#flow_div").show();
                                             $("#ip_div").hide();
-                                            $obj.removeAttr("disabled");
+//                                            $obj.removeAttr("disabled");
                                         }
                                     });
 
