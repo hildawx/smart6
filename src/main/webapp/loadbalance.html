@@ -126,63 +126,89 @@
                                     <tbody id="real6List">
                                     </tbody>
                                 </table>
-                                <div id="ip_div" class="row">
-                                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
-                                        <div class="panel-heading">
-                                            <div class="panel-title"> ip范围配置下发</div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form role="form">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
-
-                                                        <div class="form-group form-group-default">
-                                                            <label>nexthop1</label>
-                                                            <input id="range-nexthop1" type="text" class="form-control" placeholder="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
-                                                        <div class="form-group form-group-default">
-                                                            <label>nexthop2</label>
-                                                            <input id="range-nexthop2" type="text" class="form-control" placeholder="">
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
-                                        <div class="panel-heading">
-                                            <div class="panel-title"> ip列表配置下发</div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form role="form">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
-
-                                                        <div class="form-group form-group-default ">
-                                                            <label>nexthop1</label>
-                                                            <span class="help-block">多个URL地址以换行分隔。</span>
-                                                            <textarea id="list-nexthop1" required="" class="form-control" style="height: 80px;"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6 col-xlg-6">
-                                                        <div class="form-group form-group-default ">
-                                                            <label>nexthop2</label>
-                                                            <span class="help-block">多个URL地址以换行分隔。</span>
-                                                            <textarea id="list-nexthop2" required="" class="form-control" style="height: 80px;"></textarea>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    
+                                <div id="ip_div">
+                                    <table class="table table-condensed table-hover" id="" style="display: none;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" style="color:#444;">
+                                                    ip范围配置下发
+                                                </th>
+                                                <th colspan="2" style="color:#444;">
+                                                    IP地址
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="rangeip">
+                                            <tr id="nexthop1">
+                                                <td class="fs-12 col-lg-6">
+                                                    nexthop1
+                                                </td>
+                                                <td class="b-r b-dashed b-grey col-lg-3">
+                                                    <span class="hint-text small">
+                                                        00:0c:29:5e:2e:24
+                                                    </span>
+                                                </td>
+                                                <td colspan="2" class="col-lg-3 thset">
+                                                    <input type="text" id="range-nexthop1" style="display: inline;" class="form-control input-sm">
+                                                </td>
+                                            </tr>
+                                            <tr id="nexthop2">
+                                                <td class="fs-12 col-lg-6">
+                                                    nexthop2
+                                                </td>
+                                                <td class="b-r b-dashed b-grey col-lg-3">
+                                                    <span class="hint-text small">
+                                                        00:0c:29:48:1f:61
+                                                    </span>
+                                                </td>
+                                                <td colspan="2" class="col-lg-3 thset">
+                                                    <input type="text" id="range-nexthop2" style="display: inline;" class="form-control input-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-condensed table-hover" id="" style="display: none;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" style="color:#444;">
+                                                    ip列表配置下发
+                                                </th>
+                                                <th colspan="2" style="color:#444;">
+                                                    IP地址
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="rangeip">
+                                            <tr id="nexthop1">
+                                                <td class="fs-12 col-lg-6">
+                                                    nexthop1
+                                                </td>
+                                                <td class="b-r b-dashed b-grey col-lg-3">
+                                                    <span class="hint-text small">
+                                                        00:0c:29:5e:2e:24
+                                                    </span>
+                                                </td>
+                                                <td colspan="2" class="col-lg-3 thset">
+                                                    <input type="text" id="lsit-nexthop1" style="display: inline;" class="form-control input-sm">
+                                                </td>
+                                            </tr>
+                                            <tr id="nexthop2">
+                                                <td class="fs-12 col-lg-6">
+                                                    nexthop2
+                                                </td>
+                                                <td class="b-r b-dashed b-grey col-lg-3">
+                                                    <span class="hint-text small">
+                                                        00:0c:29:48:1f:61
+                                                    </span>
+                                                </td>
+                                                <td colspan="2" class="col-lg-3 thset">
+                                                    <input type="text" id="list-nexthop2" style="display: inline;" class="form-control input-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                
+
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -212,263 +238,262 @@
         <script type="text/javascript" src="pages/js/common.js"></script>
 
         <script>
-            
-        function joinArray(arr) {
-            var rs = "";
-            _.each(arr,function(item, index){
-                var value = $.trim(item);
-                if (value != '') {
-                    rs += "," + value;
-                }
-            });
-            return rs.length ==0 ? rs : rs.substring(1);
-        }
 
-        // 创建设备提交
-        function createDevice(){
-            var ip = $("#cIp").val();
-            var port = $("#cPort").val();
-            if(ip == "" || port == ""){
-                alert("输入不能为空！");
-            }else{
-                //console.log(ip+"-"+port);
-                $.ajax({
-                   url:"smart6/EqualizerAdd",
-                   data:{ip:ip,port:port},
-                   type:"POST",
-                   success:function(data){
-                       if(data == "true"){
-                           $("#addSmart6DeviceModal").modal("hide");
-                           window.location.reload();
-                       }else{
-                           alert("添加失败");
-                       }
-                   },
-                   error:function(e){
-                       alert(e.message);
-                   }
-                });
-            }
-        }
+                                function joinArray(arr) {
+                                    var rs = "";
+                                    _.each(arr, function(item, index) {
+                                        var value = $.trim(item);
+                                        if (value != '') {
+                                            rs += "," + value;
+                                        }
+                                    });
+                                    return rs.length == 0 ? rs : rs.substring(1);
+                                }
 
-        // 删除设备账号
-        function deleteDevice(i,p){
-            //console.log(i + "-" + p);
-            $.ajax({
-                url :"smart6/EqualizerDelete",
-                data:{ip:i, port:p},
-                type:"POST",
-                success:function(data){
-                    if(data == "true"){
-                        alert("删除成功！");
-                        window.location.reload();
-                    }else{
-                        alert("删除失败！");
-                    }
-                },
-                error:function(data){
-                    alert(e.message);
-                }
-             });
-        }
+                                // 创建设备提交
+                                function createDevice() {
+                                    var ip = $("#cIp").val();
+                                    var port = $("#cPort").val();
+                                    if (ip == "" || port == "") {
+                                        alert("输入不能为空！");
+                                    } else {
+                                        //console.log(ip+"-"+port);
+                                        $.ajax({
+                                            url: "smart6/EqualizerAdd",
+                                            data: {ip: ip, port: port},
+                                            type: "POST",
+                                            success: function(data) {
+                                                if (data == "true") {
+                                                    $("#addSmart6DeviceModal").modal("hide");
+                                                    window.location.reload();
+                                                } else {
+                                                    alert("添加失败");
+                                                }
+                                            },
+                                            error: function(e) {
+                                                alert(e.message);
+                                            }
+                                        });
+                                    }
+                                }
 
-        // 选择分流规则
-        function shuntRulesWin(i,p){
-            $("#shutRulesIp").val(i);
-            $("#shutRulesPort").val(p);
-            $("#shuntRulesModal").modal("show");
-        }
+                                // 删除设备账号
+                                function deleteDevice(i, p) {
+                                    //console.log(i + "-" + p);
+                                    $.ajax({
+                                        url: "smart6/EqualizerDelete",
+                                        data: {ip: i, port: p},
+                                        type: "POST",
+                                        success: function(data) {
+                                            if (data == "true") {
+                                                alert("删除成功！");
+                                                window.location.reload();
+                                            } else {
+                                                alert("删除失败！");
+                                            }
+                                        },
+                                        error: function(data) {
+                                            alert(e.message);
+                                        }
+                                    });
+                                }
 
-        // 设置负载均衡弹窗
-        function setting(ip, port) {
-            $("#settingModal").modal("show");
-            $("#settingModal").data("data",{"ip":ip,"port":port});
-        }
+                                // 选择分流规则
+                                function shuntRulesWin(i, p) {
+                                    $("#shutRulesIp").val(i);
+                                    $("#shutRulesPort").val(p);
+                                    $("#shuntRulesModal").modal("show");
+                                }
 
-        function registEventListener() {
-            $('#settingModal').on('shown.bs.modal', function(e) {
-                var param = $(this).data("data");
+                                // 设置负载均衡弹窗
+                                function setting(ip, port) {
+                                    $("#settingModal").modal("show");
+                                    $("#settingModal").data("data", {"ip": ip, "port": port});
+                                }
+
+                                function registEventListener() {
+                                    $('#settingModal').on('shown.bs.modal', function(e) {
+                                        var param = $(this).data("data");
 //                                        console.log(param.ip + "-" + param.port);
-                $.ajax({
-                    url :"smart6/getRealSmart6",
+                                        $.ajax({
+                                            url: "smart6/getRealSmart6",
 //                                            url:"ajax/getRealSmart6",
-                    data:param,
-                    type:"POST",
-                    dataType:"JSON",
-                    success:function(data){
-                        if(data){
-                            var str = "";
-                            $.each(data,function(i,e){
-                                str+="<tr id=\""+e.name+"\">";
-                                str+="<td class=\"fs-12 col-lg-6\">"+e.name+"</td>";
-                                str+="<td class=\"b-r b-dashed b-grey col-lg-3\">";
-                                str+="<span class=\"hint-text small\">"+e.mac+"</span>";
-                                str+="</td>";
-                                str+="<td class=\"col-lg-3 thset\">";
-                                str+="<input type=\"text\" class=\"form-control input-sm flowthreshold\" style=\"width:50px; display: inline;\" disabled=\"\"/> ";
-                                str+="<select class=\"form-control input-sm unit\" style=\"width:80px; display: inline;\" disabled=\"\">";
-                                str+="<option value=\"KB/s\">KB/s</option>";
-                                str+="<option value=\"MB/s\">MB/s</option>";
-                                str+="</select>";
-                                str+="</td>";
-                                str+="</tr>";
-                            });
-                            $("#real6List").html("").append(str);
-                        }else{
-                            alert("获取数据失败！");
-                        }
-                        $("#rule").trigger('change');
-                    },
-                    error:function(e){
-                        alert(e.message);
-                    }
-                 });
-            });
-        }
+                                            data: param,
+                                            type: "POST",
+                                            dataType: "JSON",
+                                            success: function(data) {
+                                                if (data) {
+                                                    var str = "";
+                                                    $.each(data, function(i, e) {
+                                                        str += "<tr id=\"" + e.name + "\">";
+                                                        str += "<td class=\"fs-12 col-lg-6\">" + e.name + "</td>";
+                                                        str += "<td class=\"b-r b-dashed b-grey col-lg-3\">";
+                                                        str += "<span class=\"hint-text small\">" + e.mac + "</span>";
+                                                        str += "</td>";
+                                                        str += "<td class=\"col-lg-3 thset\">";
+                                                        str += "<input type=\"text\" class=\"form-control input-sm flowthreshold\" style=\"width:50px; display: inline;\" disabled=\"\"/> ";
+                                                        str += "<select class=\"form-control input-sm unit\" style=\"width:80px; display: inline;\" disabled=\"\">";
+                                                        str += "<option value=\"KB/s\">KB/s</option>";
+                                                        str += "<option value=\"MB/s\">MB/s</option>";
+                                                        str += "</select>";
+                                                        str += "</td>";
+                                                        str += "</tr>";
+                                                    });
+                                                    $("#real6List").html("").append(str);
+                                                } else {
+                                                    alert("获取数据失败！");
+                                                }
+                                                $("#rule").trigger('change');
+                                            },
+                                            error: function(e) {
+                                                alert(e.message);
+                                            }
+                                        });
+                                    });
+                                }
 
-        // 下发负载方式
-        function setAlgorithm(param){
+                                // 下发负载方式
+                                function setAlgorithm(param) {
 
-            $.ajax({
-                url:"smart6/setAlgorithm",
-                data:param,
-                type:"POST",
-                dataType:"json",
-                success:function(data){
-                    if(data == "true"){
-                        alert("负载方式配置成功！");
-                    }else{
-                        alert("负载方式配置失败！");
-                    }
-                },
-                error:function(e){
-                    console.log(e);
-                }
-            });
-        }
+                                    $.ajax({
+                                        url: "smart6/setAlgorithm",
+                                        data: param,
+                                        type: "POST",
+                                        dataType: "json",
+                                        success: function(data) {
+                                            if (data == "true") {
+                                                alert("负载方式配置成功！");
+                                            } else {
+                                                alert("负载方式配置失败！");
+                                            }
+                                        },
+                                        error: function(e) {
+                                            console.log(e);
+                                        }
+                                    });
+                                }
 
-        // 提交负载均衡设置
-        function submitSetting(){
-            var flag = true;
-            var param = $("#settingModal").data("data");
-            var rule = $("#rule option:selected").val();
-            param.scheduling_algorithm = rule;
-            if(rule == "round_robin"){
-                
-            }else if(rule == "flow_threshold"){
-                var $thsets = $("#real6List tr .thset");
-                var tmp = {};
-                $.each($thsets,function(i,e){
-                   var name = $(e).parent("tr").attr("id");
-                   var flow = $(e).find("input").val();
-                   if(flow == ""){
-                       flag = false;
-                       alert("流量阈值不能为空！");
-                       return false;
-                   }
-                   var unit = $(e).find("select option:selected").val();
-                   var flowThreshold = flow + " " + unit;
-                   tmp[name] = flowThreshold;
-                });
-                param.flow = JSON.stringify(tmp);
+                                // 提交负载均衡设置
+                                function submitSetting() {
+                                    var flag = true;
+                                    var param = $("#settingModal").data("data");
+                                    var rule = $("#rule option:selected").val();
+                                    param.scheduling_algorithm = rule;
+                                    if (rule == "round_robin") {
 
-            }else{
-                var range_nexthop1 = $("#range-nexthop1").val();
-                var range_nexthop2 = $("#range-nexthop2").val();
-                var range = {};
-                range.nexthop1 = range_nexthop1;
-                range.nexthop2 = range_nexthop2;
-                
-                var list_nexthop1_arr = $("#list-nexthop1").val().trim().split("\n");
-                var list_nexthop2_arr = $("#list-nexthop2").val().trim().split("\n");
-                var list_nexthop1 = joinArray(list_nexthop1_arr);
-                var list_nexthop2 = joinArray(list_nexthop2_arr);
-                var list = {};
-                list.nexthop1 = list_nexthop1;
-                list.nexthop2 = list_nexthop2;
-                
-                if(range_nexthop1 == "" || range_nexthop2 == "" || list_nexthop1 == "" || list_nexthop2 == ""){
-                    flag = false;
-                    alert("输入ip地址不能为空！");
-                    return;
-                }
-                param.range = JSON.stringify(range);
-                param.list = JSON.stringify(list);
-                
-            }
-            
-            if(flag){
-                // 实时流量阈值下发
-                $.ajax({
-                    url:"smart6/setAlgorithm",
-                    data:param,
-                    type:"POST",
-                    dataType:"json",
-                    success:function(data){
-                        if(data){
-                            alert("负载均衡规则配置成功！");
-                        }else{
-                            alert("负载均衡规则配置失败！");
-                        }
-                    },
-                    error:function(e){
-                        console.log(e);
-                    }
-                });
-            }
-            
-        }
+                                    } else if (rule == "flow_threshold") {
+                                        var $thsets = $("#real6List tr .thset");
+                                        var tmp = {};
+                                        $.each($thsets, function(i, e) {
+                                            var name = $(e).parent("tr").attr("id");
+                                            var flow = $(e).find("input").val();
+                                            if (flow == "") {
+                                                flag = false;
+                                                alert("流量阈值不能为空！");
+                                                return false;
+                                            }
+                                            var unit = $(e).find("select option:selected").val();
+                                            var flowThreshold = flow + " " + unit;
+                                            tmp[name] = flowThreshold;
+                                        });
+                                        param.flow = JSON.stringify(tmp);
 
-        var fTable;
-        function refreshTable() {
-            if (fTable) {
-                fTable.fnDestroy();
-            }
-            // jquery.dataTables.js
-            fTable = $('#basicTable').dataTable({
-                "bSort": false,
-                "bLengthChange": false,
-                "bFilter": false,
-                "language": {
-                    "url": "pages/Chinese.json"
-                },
-                "bProcessing": true,
-                //"sAjaxSource": "ajax/data.txt",
-                "sAjaxSource": "smart6/EqualizerList",
-                "aoColumns": [
-                    {"sTitle": "IP地址"},
-                    {"sTitle": "端口"},
-                    {
-                        "sTitle": "操作",
-                        "render": function(data, type, full, meta) {
-                            var ip = full[0];
-                            var port = full[1];
-                            return '<a href="javascript:;" title="设置" onclick=setting("' + ip + '","' + port + '")><i class="fa fa-cog"></i> 设置</a> <a href="javascript:;" title="删除" onclick=deleteDevice("' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> 删除</a>';
-                        }
-                    }
-                ]
-            });
-        }
+                                    } else {
+                                        var range_nexthop1 = $("#range-nexthop1").val();
+                                        var range_nexthop2 = $("#range-nexthop2").val();
+                                        var range = {};
+                                        range.nexthop1 = range_nexthop1;
+                                        range.nexthop2 = range_nexthop2;
 
-        $(function() {
-            refreshTable();
-            registEventListener();
+                                        var list_nexthop1 = $("#list-nexthop1").val();
+                                        var list_nexthop2 = $("#list-nexthop2").val();
+                                        var list = {};
+                                        list.nexthop1 = list_nexthop1;
+                                        list.nexthop2 = list_nexthop2;
 
-            $("#rule").change(function(){
-               var rule = $("#rule option:selected").val();
-               var $obj = $("#real6List tr .thset").find("input, select");
-               if(rule != "flow_threshold"){
-                   $obj.prop("disabled","true");
-                   $("#ip_div").show();
-                   $("#flow_div").hide();
-               }else{
-                   $("#flow_div").show();
-                   $("#ip_div").hide();
-                   $obj.removeAttr("disabled");
-               }
-            });
-            
-        });
+                                        if (range_nexthop1 == "" && range_nexthop2 == "") {
+                                        }else{
+                                            param.range = JSON.stringify(range);
+                                        }
+                                        if (list_nexthop1 == "" && list_nexthop2 == "") {
+                                        }else{
+                                            param.list = JSON.stringify(list);
+                                        }
+
+                                    }
+
+                                    if (flag) {
+                                        // 实时流量阈值下发
+                                        $.ajax({
+                                            url: "smart6/setAlgorithm",
+                                            data: param,
+                                            type: "POST",
+                                            dataType: "json",
+                                            success: function(data) {
+                                                if (data) {
+                                                    alert("负载均衡规则配置成功！");
+                                                } else {
+                                                    alert("负载均衡规则配置失败！");
+                                                }
+                                            },
+                                            error: function(e) {
+                                                console.log(e);
+                                            }
+                                        });
+                                    }
+
+                                }
+
+                                var fTable;
+                                function refreshTable() {
+                                    if (fTable) {
+                                        fTable.fnDestroy();
+                                    }
+                                    // jquery.dataTables.js
+                                    fTable = $('#basicTable').dataTable({
+                                        "bSort": false,
+                                        "bLengthChange": false,
+                                        "bFilter": false,
+                                        "language": {
+                                            "url": "pages/Chinese.json"
+                                        },
+                                        "bProcessing": true,
+                                        //"sAjaxSource": "ajax/data.txt",
+                                        "sAjaxSource": "smart6/EqualizerList",
+                                        "aoColumns": [
+                                            {"sTitle": "IP地址"},
+                                            {"sTitle": "端口"},
+                                            {
+                                                "sTitle": "操作",
+                                                "render": function(data, type, full, meta) {
+                                                    var ip = full[0];
+                                                    var port = full[1];
+                                                    return '<a href="javascript:;" title="设置" onclick=setting("' + ip + '","' + port + '")><i class="fa fa-cog"></i> 设置</a> <a href="javascript:;" title="删除" onclick=deleteDevice("' + ip + '","' + port + '")><i class="fa fa-trash-o"></i> 删除</a>';
+                                                }
+                                            }
+                                        ]
+                                    });
+                                }
+
+                                $(function() {
+                                    refreshTable();
+                                    registEventListener();
+
+                                    $("#rule").change(function() {
+                                        var rule = $("#rule option:selected").val();
+                                        var $obj = $("#real6List tr .thset").find("input, select");
+                                        if (rule != "flow_threshold") {
+                                            $obj.prop("disabled", "true");
+                                            $("#ip_div").show();
+                                            $("#flow_div").hide();
+                                        } else {
+                                            $("#flow_div").show();
+                                            $("#ip_div").hide();
+                                            $obj.removeAttr("disabled");
+                                        }
+                                    });
+
+                                });
         </script>
     </body>
 
